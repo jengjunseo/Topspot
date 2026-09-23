@@ -1,0 +1,1433 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111516">
+    <meta name="description" content="T.O.P.의 첫 정규 앨범 ANOTHER DIMENSION과 그 앞의 시간을 기록한 비공식 아카이브.">
+    <title>T.O.P. — ANOTHER DIMENSION ARCHIVE</title>
+    <style>
+:root {
+  color-scheme: dark;
+  --ink: #101415;
+  --ink-2: #151b1d;
+  --panel: #1a2123;
+  --paper: #e5e2da;
+  --muted: #9ba3a4;
+  --quiet: #687174;
+  --line: rgba(223, 228, 224, .16);
+  --line-strong: rgba(223, 228, 224, .3);
+  --steel: #91a5ad;
+  --steel-bright: #c5d6d9;
+  --wine: #723c43;
+  --serif: Georgia, 'Times New Roman', serif;
+  --mono: 'Courier New', monospace;
+  --sans: 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui, sans-serif;
+  font-family: var(--sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--ink); scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; color: var(--paper); background: var(--ink); font-size: 15px; line-height: 1.65; }
+body { padding-bottom: 78px; }
+body:has(.dock-expanded) { padding-bottom: 160px; }
+button, input, textarea, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; }
+a { color: inherit; text-decoration: none; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--steel-bright);
+  outline-offset: 4px;
+}
+::selection { background: var(--steel-bright); color: var(--ink); }
+
+.skip-link { position: fixed; top: 8px; left: 8px; z-index: 200; transform: translateY(-160%); padding: 10px 14px; color: var(--ink); background: var(--paper); }
+.skip-link:focus { transform: translateY(0); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.wrap { width: min(1180px, calc(100% - 96px)); margin-inline: auto; }
+
+.site-header {
+  height: 76px;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(16, 20, 21, .92);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(18px);
+}
+.wordmark { display: inline-flex; align-items: baseline; gap: 10px; width: fit-content; }
+.wordmark span { font-size: 18px; font-weight: 800; letter-spacing: -.08em; }
+.wordmark i { color: var(--muted); font: normal 9px var(--mono); letter-spacing: .16em; }
+.primary-nav { display: flex; justify-content: center; align-items: center; gap: clamp(25px, 4.2vw, 62px); }
+.primary-nav a, .header-search { color: var(--muted); font: 10px var(--mono); letter-spacing: .15em; transition: color .18s ease; }
+.primary-nav a:hover, .primary-nav a[aria-current="page"], .header-search:hover { color: var(--paper); }
+.primary-nav a[aria-current="page"]::after { content: ''; display: block; height: 1px; margin-top: 7px; background: var(--steel-bright); }
+.header-search { justify-self: end; display: flex; gap: 12px; align-items: center; border: 0; background: none; cursor: pointer; }
+kbd { padding: 2px 6px; border: 1px solid var(--line-strong); border-radius: 3px; color: var(--muted); font: 10px var(--mono); }
+
+.eyebrow, .section-index { color: var(--steel); font: 10px var(--mono); letter-spacing: .15em; text-transform: uppercase; }
+.live-dot { width: 7px; height: 7px; display: inline-block; margin: 0 9px 1px 0; border-radius: 50%; background: var(--steel-bright); box-shadow: 0 0 12px rgba(197, 214, 217, .38); }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { font-weight: 500; }
+.button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 14px; padding: 0 19px; border: 1px solid transparent; cursor: pointer; font-size: 12px; font-weight: 600; transition: background .18s ease, color .18s ease, border-color .18s ease; }
+.button-light { color: #151b1c; background: var(--paper); }
+.button-light:hover { background: var(--steel-bright); }
+.button-outline { color: var(--paper); border-color: var(--line-strong); background: transparent; }
+.button-outline:hover { border-color: var(--steel-bright); background: rgba(197, 214, 217, .08); }
+.quiet-button, .text-button { border: 0; padding: 5px 0; color: var(--muted); background: none; cursor: pointer; font-size: 11px; text-align: left; transition: color .2s ease; }
+.quiet-button:hover, .text-button:hover { color: var(--paper); }
+.quiet-button span, .text-button span { padding-left: 8px; color: var(--steel-bright); }
+
+.home-hero { width: min(1280px, calc(100% - 96px)); min-height: 670px; margin: 0 auto; padding: 78px 0 86px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(380px, .83fr); gap: clamp(45px, 8vw, 118px); align-items: center; }
+.hero-copy { padding: 10px 0; }
+.hero-copy .eyebrow { margin-bottom: 29px; }
+.hero-copy h1 { margin-bottom: 24px; font-size: clamp(40px, 5.1vw, 72px); line-height: 1.19; letter-spacing: -.065em; }
+.hero-copy h1 em, .page-intro h1 em, .search-title h1 em { color: var(--steel-bright); font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; }
+.hero-intro { max-width: 510px; margin: 0 0 32px; color: #b7bdbc; font-size: 15px; line-height: 1.9; word-break: keep-all; }
+.hero-actions { display: flex; gap: 10px; align-items: center; }
+.hero-facts { display: flex; gap: 15px; align-items: center; margin-top: 55px; color: var(--muted); font: 9px var(--mono); letter-spacing: .12em; }
+.hero-facts i { width: 3px; height: 3px; border-radius: 50%; background: var(--steel); }
+.hero-artwork { position: relative; aspect-ratio: .91; min-height: 410px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 22px; background: linear-gradient(138deg, #3b484b 0%, #89959a 22%, #4f5a5d 35%, #1e2729 36%, #0e1213 73%, #303b3f 100%); box-shadow: 28px 28px 0 rgba(255,255,255,.018); }
+.hero-artwork::before { content: ''; position: absolute; width: 65%; height: 130%; top: -12%; right: -18%; transform: rotate(22deg); border-left: 1px solid rgba(255,255,255,.28); background: linear-gradient(90deg, transparent, rgba(231,236,233,.1), transparent); }
+.hero-artwork::after { content: ''; position: absolute; inset: 8% 9%; border: 1px solid rgba(237,242,239,.16); pointer-events: none; }
+.artwork-top, .artwork-bottom { z-index: 1; display: flex; justify-content: space-between; color: rgba(246,247,244,.7); font: 9px var(--mono); letter-spacing: .12em; }
+.artwork-grid { position: absolute; inset: 20% 8% 24%; display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(2,1fr); opacity: .28; transform: rotate(-8deg) skewY(-5deg); }
+.artwork-grid i { border: 1px solid rgba(241,246,244,.6); }
+.artwork-grid i:nth-child(2), .artwork-grid i:nth-child(4) { background: rgba(13,19,20,.32); }
+.artwork-grid i:nth-child(5) { background: rgba(203,215,217,.19); }
+.artwork-title { position: relative; z-index: 1; display: flex; flex-direction: column; margin: auto 0; transform: translateY(-7px); }
+.artwork-title span { margin-bottom: 15px; font-size: clamp(38px, 5vw, 67px); font-weight: 800; letter-spacing: -.09em; }
+.artwork-title strong { font: 400 clamp(21px, 2.6vw, 35px)/1.08 var(--serif); letter-spacing: .04em; }
+.artwork-bottom { z-index: 1; }
+.artwork-disclaimer { position: absolute; right: 22px; bottom: 58px; color: rgba(246,247,244,.45); font: 7px/1.6 var(--mono); text-align: right; letter-spacing: .1em; }
+
+.home-release { padding: 29px 0 32px; display: flex; align-items: flex-end; justify-content: space-between; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.home-release .section-index { display: block; margin-bottom: 12px; }
+.home-release h2 { margin-bottom: 6px; font-size: 24px; letter-spacing: -.04em; }
+.home-release p { margin: 0; color: var(--muted); font-size: 12px; }
+.release-meta { min-width: 185px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; color: var(--muted); font-size: 11px; }
+.release-meta strong { color: var(--paper); font: 12px var(--mono); }
+.release-meta .text-link { margin-top: 5px; }
+.home-panels { padding-top: 92px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.feature-panel { min-height: 335px; position: relative; overflow: hidden; padding: 35px 38px; background: var(--ink-2); border: 1px solid rgba(255,255,255,.025); }
+.feature-panel::after { content: ''; position: absolute; right: -72px; bottom: -120px; width: 300px; height: 300px; border: 1px solid rgba(197,214,217,.14); border-radius: 50%; box-shadow: 0 0 0 24px rgba(197,214,217,.018), 0 0 0 54px rgba(197,214,217,.016); }
+.feature-track::after { right: -88px; bottom: -180px; width: 360px; height: 250px; transform: rotate(-32deg); border-radius: 0; }
+.panel-number { position: absolute; right: 34px; top: 28px; color: rgba(197,214,217,.2); font: 14px var(--mono); }
+.feature-panel .eyebrow { margin-bottom: 33px; }
+.feature-panel h2 { position: relative; z-index: 1; margin-bottom: 15px; font-size: 29px; line-height: 1.3; letter-spacing: -.04em; }
+.feature-panel p:not(.eyebrow) { position: relative; z-index: 1; max-width: 450px; color: #aab1b1; font-size: 12px; line-height: 1.9; word-break: keep-all; }
+.feature-panel .text-button { position: relative; z-index: 1; margin-top: 14px; }
+.home-list { padding-top: 90px; padding-bottom: 87px; }
+.section-heading { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 26px; }
+.section-heading .section-index { display: block; margin-bottom: 9px; }
+.section-heading h2 { margin: 0; font-size: 28px; letter-spacing: -.04em; }
+.home-track-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 42px; }
+.track-row { min-width: 0; display: flex; justify-content: space-between; align-items: stretch; border-bottom: 1px solid var(--line); transition: background .18s ease; }
+.track-row:hover { background: rgba(255,255,255,.025); }
+.track-select { width: calc(100% - 46px); display: flex; align-items: center; gap: 17px; min-height: 78px; border: 0; padding: 10px 8px; text-align: left; background: transparent; cursor: pointer; }
+.track-no { color: var(--quiet); font: 11px var(--mono); }
+.track-name { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.track-name strong { overflow: hidden; color: var(--paper); font-size: 12px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.track-name small { color: var(--muted); font: 9px var(--mono); letter-spacing: .07em; }
+.track-duration { margin-left: auto; color: var(--muted); font: 10px var(--mono); }
+.row-play { align-self: center; width: 36px; height: 36px; flex: 0 0 auto; border: 1px solid var(--line); border-radius: 50%; color: var(--steel-bright); background: transparent; cursor: pointer; font-size: 9px; transition: background .2s ease; }
+.row-play:hover { color: var(--ink); background: var(--steel-bright); }
+.home-note { padding: 22px 0 55px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 160px 1fr auto; gap: 28px; align-items: start; }
+.home-note > span { padding-top: 2px; color: var(--steel); font: 9px var(--mono); letter-spacing: .13em; }
+.home-note p { max-width: 630px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.text-link { width: fit-content; color: var(--steel-bright); font-size: 10px; transition: color .2s ease; }
+.text-link:hover { color: #fff; }
+.site-footer { min-height: 91px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); }
+.site-footer > span { color: var(--quiet); font: 8px var(--mono); letter-spacing: .14em; }
+
+.page-intro { min-height: 323px; padding-top: 83px; padding-bottom: 55px; display: flex; justify-content: space-between; align-items: flex-end; gap: 55px; }
+.page-intro .eyebrow { display: block; margin-bottom: 24px; }
+.page-intro h1 { margin: 0; font-size: clamp(44px, 5.2vw, 68px); line-height: 1.17; letter-spacing: -.065em; }
+.page-lede { max-width: 355px; margin: 0 0 10px; color: #aeb5b5; font-size: 13px; line-height: 1.9; word-break: keep-all; }
+
+.records-lead { display: grid; grid-template-columns: minmax(280px, .78fr) 1.2fr; gap: clamp(45px, 9vw, 125px); align-items: center; padding-top: 27px; padding-bottom: 105px; }
+.records-cover { aspect-ratio: 1; max-width: 420px; width: 100%; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: 32px; background: linear-gradient(145deg,#364246 0%,#829197 28%,#252e31 30%,#131819 67%,#566469 100%); box-shadow: 18px 18px 0 rgba(255,255,255,.018); }
+.records-cover::before { content: ''; position: absolute; inset: 8%; border: 1px solid rgba(239,244,241,.22); }
+.records-cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg,transparent 20%,rgba(226,235,233,.12) 21%,transparent 22%); }
+.cover-lines { position: absolute; inset: 15% 0; background: repeating-linear-gradient(0deg,transparent 0,transparent 33px,rgba(237,242,241,.1) 34px,transparent 35px); transform: skewY(-10deg); }
+.cover-label, .cover-korean, .records-cover small, .records-cover strong { position: relative; z-index: 1; }
+.cover-label { color: rgba(241,245,243,.63); font: 8px var(--mono); letter-spacing: .1em; }
+.records-cover strong { margin: 25px 0; font: 400 clamp(31px,4.7vw,57px)/1.05 var(--serif); letter-spacing: .025em; }
+.cover-korean { font-size: 14px; }
+.records-cover small { position: absolute; right: 19px; bottom: 17px; color: rgba(241,245,243,.45); font: 7px var(--mono); }
+.records-info { max-width: 570px; }
+.records-info .eyebrow { margin-bottom: 18px; }
+.records-info h2 { margin-bottom: 16px; font-size: clamp(31px,4vw,48px); line-height: 1.2; letter-spacing: -.055em; }
+.records-info > p:not(.eyebrow):not(.rights-note) { max-width: 480px; color: var(--muted); font-size: 13px; line-height: 1.95; word-break: keep-all; }
+.records-info dl { margin: 27px 0 26px; border-top: 1px solid var(--line); }
+.records-info dl div { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 11px; }
+.records-info dt { color: var(--quiet); }
+.records-info dd { margin: 0; color: var(--paper); }
+.platform-links { display: flex; flex-wrap: wrap; gap: 15px 23px; }
+.rights-note { margin: 24px 0 0; color: var(--quiet); font-size: 10px; }
+.rooms-section { padding-bottom: 90px; }
+.rooms-section > .section-heading { margin-bottom: 30px; }
+.rooms-section .section-heading > p { margin: 0 0 2px; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.room-card { margin-bottom: 13px; padding: 26px 30px 20px; border: 1px solid var(--line); background: #14191a; }
+.room-heading { display: flex; align-items: center; gap: 22px; }
+.room-heading > span:first-child { color: var(--steel-bright); font: 20px var(--mono); }
+.room-heading > div { flex: 1; }
+.room-heading p { margin: 0 0 2px; color: var(--quiet); font: 8px var(--mono); letter-spacing: .14em; }
+.room-heading h3 { margin: 0; font-size: 22px; }
+.room-count { color: var(--muted); font: 8px var(--mono); letter-spacing: .1em; }
+.room-description { max-width: 620px; margin: 13px 0 20px 47px; color: var(--muted); font-size: 11px; }
+.room-track-list { margin-left: 47px; }
+.room-track-list .track-select { min-height: 64px; }
+.before-album, .credits { padding: 46px 0 88px; display: grid; grid-template-columns: .7fr 1.3fr; gap: 50px; border-top: 1px solid var(--line); }
+.before-album h2, .credits h2 { margin: 12px 0 9px; font-size: 25px; }
+.before-album > div:first-child p, .credits > div:first-child p { max-width: 390px; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.before-links { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.before-links article { padding: 20px; border: 1px solid var(--line); background: var(--ink-2); }
+.before-links small { color: var(--steel); font: 8px var(--mono); letter-spacing: .13em; }
+.before-links h3 { margin: 12px 0 7px; font-size: 20px; }
+.before-links p { min-height: 34px; color: var(--muted); font-size: 10px; }
+.credits { padding-bottom: 75px; }
+
+.life-layout { display: grid; grid-template-columns: minmax(0, .96fr) minmax(365px, 1.04fr); gap: 24px; align-items: start; padding-bottom: 72px; }
+.life-list-column { border-top: 1px solid var(--line-strong); }
+.life-list-tools { min-height: 55px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--line); color: var(--muted); font: 9px var(--mono); letter-spacing: .06em; }
+.life-list-tools select { min-width: 100px; padding: 7px 22px 7px 9px; border: 1px solid var(--line); border-radius: 0; color: var(--paper); background: var(--ink-2); font: 10px var(--sans); }
+.life-list-tools > span { margin-left: auto; color: var(--quiet); }
+.event-card { width: 100%; position: relative; display: grid; grid-template-columns: 108px 1fr; column-gap: 14px; row-gap: 5px; padding: 17px 30px 18px 0; border: 0; border-bottom: 1px solid var(--line); color: var(--paper); background: none; cursor: pointer; text-align: left; transition: background .16s ease, padding .16s ease; }
+.event-card:hover, .event-card.is-selected { padding-left: 10px; background: rgba(197,214,217,.045); }
+.event-date { grid-column: 1; grid-row: 1 / span 3; position: relative; padding-top: 1px; color: var(--steel-bright); font: 10px var(--mono); }
+.event-date i { position: absolute; right: -14px; top: 6px; width: 5px; height: 5px; border-radius: 50%; background: var(--steel); box-shadow: 0 0 0 4px var(--ink); }
+.event-label { grid-column: 2; color: var(--quiet); font: 8px var(--mono); letter-spacing: .1em; }
+.event-card > strong { grid-column: 2; font-size: 12px; font-weight: 500; }
+.event-summary { grid-column: 2; color: var(--muted); font-size: 10px; line-height: 1.6; }
+.event-arrow { position: absolute; right: 4px; top: 24px; color: var(--quiet); }
+.event-card.is-selected .event-arrow { color: var(--steel-bright); }
+.life-detail { position: sticky; top: 104px; padding: 30px 32px; border: 1px solid var(--line); background: #171d1f; }
+.detail-stamp { display: flex; justify-content: space-between; gap: 15px; color: var(--steel); font: 8px var(--mono); letter-spacing: .11em; }
+.life-detail h2 { margin: 25px 0 26px; font-size: clamp(24px,2.6vw,33px); line-height: 1.35; letter-spacing: -.04em; word-break: keep-all; }
+.fact-block, .reading-block, .related-block, .sources-block { padding: 17px 0; border-top: 1px solid var(--line); }
+.fact-block > span, .reading-block > span, .related-block > span, .sources-block > span { color: var(--steel); font: 8px var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+.fact-block p, .reading-block p { margin: 8px 0 0; color: #c0c5c2; font-size: 11px; line-height: 1.9; word-break: keep-all; }
+.reading-block p { color: var(--muted); }
+.related-track-list { display: flex; flex-direction: column; margin-top: 8px; }
+.related-track-list button { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border: 0; color: var(--paper); background: none; cursor: pointer; text-align: left; font-size: 10px; }
+.related-track-list button span { color: var(--steel); }
+.source-list { display: flex; flex-direction: column; gap: 7px; margin: 8px 0 0; padding: 0; list-style: none; }
+.source-list .text-link { font-size: 9px; line-height: 1.6; }
+.checked-date { margin: 14px 0 0; color: var(--quiet); font: 8px var(--mono); }
+.editorial-policy { padding: 22px 25px; margin-bottom: 50px; border-left: 2px solid var(--steel); background: rgba(255,255,255,.025); display: flex; align-items: center; gap: 30px; }
+.editorial-policy .eyebrow { flex: 0 0 auto; margin: 0; }
+.editorial-policy p:not(.eyebrow) { flex: 1; margin: 0; color: var(--muted); font-size: 10px; }
+
+.track-detail-page { position: relative; overflow: hidden; padding-bottom: 80px; background: linear-gradient(180deg,rgba(90,111,118,.11),transparent 70%); }
+.room-color-2 { background: linear-gradient(180deg,rgba(108,89,83,.12),transparent 70%); }
+.room-color-3 { background: linear-gradient(180deg,rgba(80,102,89,.13),transparent 70%); }
+.track-detail-head { min-height: 74px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.back-link { border: 0; color: var(--muted); background: none; cursor: pointer; font-size: 10px; }
+.back-link:hover { color: var(--paper); }
+.room-tag, .track-sequence { color: var(--muted); font: 8px var(--mono); letter-spacing: .1em; }
+.track-detail-main { min-height: 500px; padding-top: 63px; padding-bottom: 36px; display: grid; grid-template-columns: minmax(280px, .75fr) minmax(0, 1fr); gap: clamp(40px, 8vw, 115px); align-items: center; }
+.track-art { aspect-ratio: 1; max-width: 380px; width: 100%; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(197,214,217,.19); background: linear-gradient(142deg,#3a4547,#192123 45%,#0f1314 72%,#657379); }
+.track-art::before { content: ''; position: absolute; inset: 12%; border: 1px solid rgba(231,238,235,.2); transform: rotate(-8deg); }
+.track-art::after { content: ''; position: absolute; width: 150%; height: 1px; background: rgba(231,238,235,.2); transform: rotate(-39deg); }
+.track-art-lines { position: absolute; inset: 0; background: repeating-linear-gradient(125deg,transparent 0 25px,rgba(239,245,242,.045) 26px,transparent 27px); }
+.track-art > span, .track-art strong, .track-art small { z-index: 1; }
+.track-art > span { color: rgba(239,245,242,.68); font: 8px var(--mono); letter-spacing: .15em; }
+.track-art strong { margin: 12px 0; color: rgba(240,245,243,.9); font: 400 clamp(85px,13vw,155px)/1 var(--serif); letter-spacing: -.08em; }
+.track-art small { color: rgba(239,245,242,.45); font: 7px var(--mono); letter-spacing: .16em; }
+.track-copy { max-width: 620px; }
+.track-copy .eyebrow { margin-bottom: 16px; }
+.track-copy h1 { margin-bottom: 12px; display: flex; flex-direction: column; font-size: clamp(35px,4.4vw,58px); line-height: 1.2; letter-spacing: -.06em; }
+.track-copy h1 span { font-size: .58em; color: var(--steel-bright); }
+.track-copy h1 em { font: 400 .72em/1.35 var(--serif); letter-spacing: .005em; overflow-wrap: anywhere; }
+.track-room-title { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: var(--steel-bright); font: 9px var(--mono); letter-spacing: .08em; }
+.track-room-title span { color: var(--quiet); }
+.track-room-description { max-width: 490px; color: var(--muted); font-size: 11px; line-height: 1.8; }
+.track-player { margin-top: 32px; padding-top: 17px; border-top: 1px solid var(--line); display: grid; grid-template-columns: auto 1fr; gap: 10px 16px; align-items: center; }
+.track-player .button { grid-row: 1 / span 3; }
+.preview-label { color: var(--quiet); font: 7px var(--mono); letter-spacing: .1em; }
+.track-progress { height: 2px; background: rgba(225,231,228,.15); }
+.track-progress span { display: block; width: 0; height: 100%; background: var(--steel-bright); transition: width .15s linear; }
+.track-time { display: flex; justify-content: space-between; color: var(--quiet); font: 8px var(--mono); }
+.track-main-links { display: flex; flex-wrap: wrap; gap: 12px 23px; margin-top: 18px; }
+.track-main-links .text-link { font-size: 9px; }
+.track-notes { padding-top: 42px; }
+.track-notes-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 30px; margin-bottom: 21px; }
+.track-notes-heading .section-index { flex: 0 0 auto; }
+.track-notes-heading p { max-width: 480px; margin: 0; color: var(--muted); font-size: 10px; text-align: right; }
+.note-section { display: grid; grid-template-columns: 230px 1fr; gap: 30px; padding: 23px 0; border-top: 1px solid var(--line); }
+.note-section > span { color: var(--steel); font: 8px var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+.note-section p { max-width: 760px; margin: 0; color: #c4c9c7; font-size: 12px; line-height: 1.9; word-break: keep-all; }
+.lyrics-note { margin: 24px 0; padding: 27px; border: 1px solid var(--line); display: grid; grid-template-columns: .8fr 1.2fr; gap: 35px; background: rgba(255,255,255,.018); }
+.lyrics-note h2 { margin: 11px 0 7px; font-size: 19px; }
+.lyrics-note > div > p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.8; }
+.lyrics-note details summary { width: fit-content; margin-bottom: 10px; color: var(--steel-bright); cursor: pointer; font-size: 11px; }
+.lyrics-note textarea { display: block; width: 100%; min-height: 130px; resize: vertical; padding: 12px; border: 1px solid var(--line-strong); border-radius: 0; color: var(--paper); background: #101415; font-size: 11px; line-height: 1.7; }
+.lyrics-note details > div { display: flex; gap: 20px; align-items: center; margin-top: 11px; }
+.lyrics-note .button { min-height: 38px; font-size: 10px; }
+.related-event-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 12px; }
+.related-event-list button { min-width: 0; position: relative; display: flex; flex-direction: column; gap: 8px; padding: 14px 24px 14px 14px; border: 1px solid var(--line); color: var(--paper); background: var(--ink-2); cursor: pointer; text-align: left; }
+.related-event-list button small { color: var(--steel); font: 8px var(--mono); }
+.related-event-list button strong { font-size: 10px; font-weight: 500; line-height: 1.5; }
+.related-event-list button > span { position: absolute; top: 11px; right: 10px; color: var(--quiet); }
+.track-pagination { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 38px; }
+.track-pagination button { min-height: 82px; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 14px 20px; border: 1px solid var(--line); background: transparent; cursor: pointer; text-align: left; }
+.track-pagination button:last-child { align-items: flex-end; text-align: right; }
+.track-pagination button:hover { background: rgba(255,255,255,.035); }
+.track-pagination small { color: var(--steel); font: 8px var(--mono); letter-spacing: .1em; }
+.track-pagination strong { max-width: 95%; overflow: hidden; font-size: 11px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+
+.search-page { min-height: calc(100vh - 230px); max-width: 920px; padding-top: 87px; padding-bottom: 60px; }
+.search-title .eyebrow { margin-bottom: 24px; }
+.search-title h1 { margin-bottom: 12px; font-size: clamp(43px,5vw,64px); line-height: 1.17; letter-spacing: -.065em; }
+.search-title > p:last-child { margin-bottom: 34px; color: var(--muted); font-size: 11px; }
+.search-input-wrap { min-height: 65px; display: flex; align-items: center; gap: 16px; padding: 0 18px; border: 1px solid var(--line-strong); background: #151a1b; }
+.search-input-wrap > span { color: var(--steel-bright); font-size: 24px; }
+.search-input-wrap input { flex: 1; width: 100%; border: 0; outline: 0; color: var(--paper); background: transparent; font-size: 14px; }
+.search-input-wrap input::placeholder { color: var(--quiet); }
+.search-input-wrap input:focus-visible { outline: 0; }
+.search-meta { display: flex; justify-content: space-between; padding: 16px 0 8px; color: var(--quiet); font: 8px var(--mono); letter-spacing: .1em; }
+.search-results { border-top: 1px solid var(--line); }
+.search-result { width: 100%; min-height: 75px; position: relative; display: grid; grid-template-columns: 140px 1fr 180px; gap: 4px 12px; align-content: center; padding: 13px 34px 13px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; cursor: pointer; text-align: left; transition: background .15s ease, padding .15s ease; }
+.search-result:hover { padding-left: 10px; background: rgba(255,255,255,.025); }
+.search-result .result-kind { grid-column: 1; grid-row: 1 / span 2; align-self: center; color: var(--steel); font: 8px var(--mono); letter-spacing: .06em; }
+.search-result strong { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 11px; font-weight: 500; }
+.search-result small { grid-column: 3; grid-row: 1 / span 2; align-self: center; color: var(--muted); font-size: 9px; }
+.search-result i { position: absolute; right: 5px; top: 50%; transform: translateY(-50%); color: var(--quiet); font-style: normal; }
+.empty-state { padding: 44px 20px; border-bottom: 1px solid var(--line); text-align: center; }
+.empty-state strong { font-size: 15px; font-weight: 500; }
+.empty-state p { margin: 8px 0 18px; color: var(--muted); font-size: 10px; }
+.empty-state .text-button { margin: 0 10px; }
+.index-search { padding-bottom: 88px; }
+.filter-row { display: flex; justify-content: space-between; align-items: center; padding: 17px 0 12px; }
+.filter-row > span { color: var(--quiet); font: 8px var(--mono); letter-spacing: .1em; }
+.filter-tabs { display: flex; gap: 5px; }
+.filter-tabs button { padding: 7px 13px; border: 1px solid transparent; color: var(--muted); background: none; cursor: pointer; font-size: 10px; }
+.filter-tabs button.is-active { border-color: var(--line-strong); color: var(--paper); }
+.index-sources { margin-top: 70px; padding-top: 25px; border-top: 1px solid var(--line); display: grid; grid-template-columns: .7fr 1.3fr; gap: 30px; }
+.index-sources h2 { margin: 10px 0 4px; font-size: 20px; }
+.index-sources p { color: var(--muted); font-size: 10px; }
+.source-shelf { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+.source-shelf a { min-height: 44px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 9px; }
+
+.player-dock { position: fixed; z-index: 30; right: 0; bottom: 0; left: 0; min-height: 78px; display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 11px 40px 14px; border-top: 1px solid rgba(219,227,224,.22); background: rgba(13,17,18,.97); backdrop-filter: blur(22px); }
+.dock-idle { display: flex; align-items: center; gap: 15px; }
+.dock-line { width: 2px; height: 35px; background: var(--steel); }
+.dock-idle > div, .dock-meta { display: flex; flex-direction: column; gap: 2px; }
+.dock-idle small, .dock-meta small { color: var(--quiet); font: 7px var(--mono); letter-spacing: .1em; }
+.dock-idle strong { color: var(--muted); font-size: 10px; font-weight: 400; }
+.dock-hint { color: var(--quiet); font-size: 9px; }
+.dock-track { min-width: 0; grid-column: 1 / span 2; display: grid; grid-template-columns: 42px minmax(150px,1fr) auto minmax(120px,2.4fr) 74px 32px; align-items: center; column-gap: 16px; }
+.dock-cover { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid var(--line-strong); color: var(--steel-bright); background: linear-gradient(145deg,#57666a,#151a1b 55%,#6e7778); cursor: pointer; font: 10px var(--mono); }
+.dock-meta { min-width: 0; }
+.dock-meta strong { overflow: hidden; color: var(--paper); font-size: 10px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.dock-controls { display: flex; align-items: center; gap: 10px; }
+.icon-button, .play-button { width: 29px; height: 29px; display: grid; place-items: center; border: 0; color: var(--muted); background: transparent; cursor: pointer; }
+.icon-button:hover { color: var(--paper); }
+.play-button { width: 34px; height: 34px; border-radius: 50%; color: var(--ink); background: var(--paper); font-size: 10px; }
+.play-button:hover { background: var(--steel-bright); }
+.dock-progress { height: 2px; background: rgba(225,231,228,.17); }
+.dock-progress span { display: block; width: 0; height: 100%; background: var(--steel-bright); transition: width .15s linear; }
+.dock-time { display: flex; justify-content: space-between; color: var(--quiet); font: 8px var(--mono); }
+.dock-expand { justify-self: end; font-size: 15px; }
+.dock-message { position: absolute; bottom: 2px; left: 97px; color: var(--quiet); font-size: 8px; }
+.dock-expanded { grid-column: 1 / span 2; display: grid; grid-template-columns: 150px 1fr auto auto; align-items: center; gap: 18px; padding: 18px 0 7px; border-top: 1px solid var(--line); }
+.dock-expanded > span { color: var(--steel); font: 8px var(--mono); letter-spacing: .13em; }
+.dock-expanded p { margin: 0; color: var(--muted); font-size: 9px; }
+.dock-expanded .text-link { font-size: 9px; }
+.player-dock:has(.dock-expanded) { grid-template-rows: auto auto; }
+.toast { position: fixed; z-index: 80; left: 50%; bottom: 103px; max-width: calc(100% - 32px); padding: 11px 16px; transform: translate(-50%, 14px); border: 1px solid var(--line-strong); color: var(--paper); background: #1a2123; opacity: 0; pointer-events: none; font-size: 10px; transition: opacity .2s ease, transform .2s ease; }
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+.intro-layer { position: fixed; z-index: 60; inset: 0; display: grid; grid-template-columns: 1fr minmax(340px, .65fr); align-items: center; gap: 4vw; padding: 7vh 10vw; background: radial-gradient(ellipse at 80% 55%,rgba(116,139,146,.24),transparent 42%), #101415; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .6s ease, visibility .6s ease; }
+.intro-layer.is-visible { opacity: 1; visibility: visible; pointer-events: auto; }
+.intro-content { max-width: 700px; }
+.intro-content .eyebrow { margin-bottom: 65px; }
+.intro-overline { color: var(--muted); font: 9px var(--mono); letter-spacing: .2em; }
+.intro-content h1 { margin: 17px 0 26px; font-size: clamp(54px,8vw,105px); font-weight: 800; line-height: .95; letter-spacing: -.09em; }
+.intro-content h1 em { color: var(--steel-bright); font: 400 .56em/1.4 var(--serif); letter-spacing: .01em; }
+.intro-rule { width: 90px; height: 1px; margin-bottom: 22px; background: var(--steel-bright); }
+.intro-copy { color: #c0c7c5; font-size: 15px; line-height: 2; }
+.intro-actions { display: flex; align-items: center; gap: 25px; margin-top: 28px; }
+.intro-footnote { margin-top: 54px; color: var(--quiet); font-size: 9px; }
+.intro-mark { height: min(59vh,480px); position: relative; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; padding: 17px; border: 1px solid rgba(219,228,225,.16); background: linear-gradient(135deg,rgba(145,165,173,.29),transparent 42%), repeating-linear-gradient(145deg,transparent 0 44px,rgba(218,231,230,.07) 45px,transparent 46px); }
+.intro-mark::before { content: ''; position: absolute; inset: 9%; border: 1px solid rgba(219,228,225,.18); transform: rotate(8deg); }
+.intro-mark span, .intro-mark i { z-index: 1; color: rgba(235,240,237,.56); font: 8px var(--mono); letter-spacing: .15em; }
+.intro-mark i { font-style: normal; }
+
+@media (max-width: 900px) {
+  .site-header { padding: 0 27px; grid-template-columns: .7fr 2fr .7fr; }
+  .wrap, .home-hero { width: calc(100% - 54px); }
+  .home-hero { min-height: 590px; grid-template-columns: 1.05fr .85fr; gap: 35px; }
+  .hero-artwork { min-height: 355px; }
+  .hero-copy h1 { font-size: clamp(39px,5.6vw,55px); }
+  .life-layout { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .life-detail { padding: 25px 21px; }
+  .event-card { grid-template-columns: 85px 1fr; }
+  .dock-track { grid-template-columns: 40px minmax(120px,1fr) auto minmax(90px,1.5fr) 67px 28px; column-gap: 10px; }
+  .note-section { grid-template-columns: 180px 1fr; }
+  .track-detail-main { gap: 46px; }
+}
+
+@media (max-width: 640px) {
+  body { font-size: 14px; }
+  body { padding-bottom: 67px; }
+  body:has(.dock-expanded) { padding-bottom: 150px; }
+  .wrap, .home-hero { width: calc(100% - 36px); }
+  .site-header { height: 64px; padding: 0 18px; grid-template-columns: 1fr auto; gap: 10px; }
+  .wordmark span { font-size: 16px; }
+  .primary-nav { grid-column: 1 / span 2; grid-row: 2; position: fixed; top: 64px; left: 0; right: 0; height: 41px; gap: 0; justify-content: space-around; border-bottom: 1px solid var(--line); background: rgba(16,20,21,.96); }
+  .primary-nav a { height: 100%; display: grid; place-items: center; font-size: 8px; }
+  .primary-nav a[aria-current="page"]::after { position: absolute; bottom: 0; margin: 0; width: 30px; }
+  .header-search { grid-column: 2; grid-row: 1; padding: 5px 0; font-size: 8px; }
+  .header-search kbd { display: none; }
+  .home-hero { padding-top: 133px; padding-bottom: 45px; min-height: auto; grid-template-columns: 1fr; gap: 35px; }
+  .hero-copy .eyebrow { margin-bottom: 21px; font-size: 8px; }
+  .hero-copy h1 { font-size: clamp(39px,10.2vw,54px); }
+  .hero-intro { font-size: 13px; }
+  .hero-actions { flex-wrap: wrap; }
+  .hero-facts { margin-top: 29px; font-size: 8px; }
+  .hero-artwork { width: min(100%, 440px); min-height: 0; margin-inline: auto; aspect-ratio: 1; }
+  .artwork-title span { font-size: 58px; }
+  .artwork-title strong { font-size: 30px; }
+  .home-release { gap: 20px; align-items: flex-start; }
+  .home-release h2 { font-size: 19px; }
+  .home-release p { max-width: 230px; font-size: 10px; line-height: 1.7; }
+  .release-meta { min-width: 100px; font-size: 9px; text-align: right; }
+  .release-meta strong { font-size: 9px; }
+  .release-meta .text-link { font-size: 8px; }
+  .home-panels { padding-top: 54px; grid-template-columns: 1fr; gap: 10px; }
+  .feature-panel { min-height: 284px; padding: 27px 24px; }
+  .feature-panel .eyebrow { margin-bottom: 24px; }
+  .feature-panel h2 { font-size: 24px; }
+  .feature-panel p:not(.eyebrow) { max-width: 90%; font-size: 10px; }
+  .home-list { padding-top: 58px; padding-bottom: 54px; }
+  .section-heading { gap: 15px; }
+  .section-heading h2 { font-size: 22px; }
+  .section-heading .text-button { font-size: 9px; }
+  .home-track-grid { grid-template-columns: 1fr; }
+  .track-select { gap: 13px; min-height: 68px; }
+  .track-name strong { font-size: 11px; }
+  .home-note { padding-bottom: 34px; grid-template-columns: 1fr; gap: 10px; }
+  .home-note p { font-size: 10px; }
+  .site-footer { min-height: 84px; }
+  .site-footer > span { max-width: 105px; font-size: 7px; text-align: center; line-height: 1.6; }
+  .site-footer .text-button { font-size: 9px; }
+  .page-intro { min-height: auto; padding-top: 140px; padding-bottom: 38px; display: block; }
+  .page-intro .eyebrow { margin-bottom: 18px; }
+  .page-intro h1 { font-size: 43px; }
+  .page-lede { margin: 22px 0 0; font-size: 11px; }
+  .records-lead { padding-top: 14px; padding-bottom: 59px; grid-template-columns: 1fr; gap: 30px; }
+  .records-cover { width: min(82vw, 390px); margin-inline: auto; padding: 25px; }
+  .cover-label { font-size: 7px; }
+  .records-cover strong { font-size: clamp(39px,10vw,55px); }
+  .records-info h2 { font-size: 32px; }
+  .records-info > p:not(.eyebrow):not(.rights-note) { font-size: 11px; }
+  .rooms-section { padding-bottom: 55px; }
+  .rooms-section .section-heading { display: block; }
+  .rooms-section .section-heading > p { margin-top: 12px; }
+  .room-card { padding: 20px 15px 15px; }
+  .room-heading { gap: 13px; }
+  .room-heading > span:first-child { font-size: 16px; }
+  .room-heading h3 { font-size: 18px; }
+  .room-count { font-size: 7px; }
+  .room-description { margin: 12px 0 15px; font-size: 10px; }
+  .room-track-list { margin: 0; }
+  .room-track-list .track-select { min-height: 59px; }
+  .before-album, .credits { padding: 32px 0 55px; grid-template-columns: 1fr; gap: 18px; }
+  .before-links { grid-template-columns: 1fr; }
+  .before-links p { min-height: 0; }
+  .life-layout { padding-bottom: 45px; grid-template-columns: 1fr; }
+  .life-detail { position: static; grid-row: 1; padding: 23px 20px; }
+  .life-detail h2 { margin: 20px 0; font-size: 25px; }
+  .life-list-tools { min-height: 48px; }
+  .event-card { grid-template-columns: 83px 1fr; padding: 14px 25px 15px 0; }
+  .event-card > strong { font-size: 11px; }
+  .event-summary { font-size: 9px; }
+  .editorial-policy { margin-bottom: 33px; padding: 18px; align-items: flex-start; flex-direction: column; gap: 9px; }
+  .editorial-policy p:not(.eyebrow) { line-height: 1.8; }
+  .track-detail-head { min-height: 63px; }
+  .track-detail-head .room-tag { display: none; }
+  .track-sequence { font-size: 7px; }
+  .track-detail-main { padding-top: 30px; padding-bottom: 26px; grid-template-columns: 1fr; gap: 27px; }
+  .track-art { width: min(76vw,350px); margin-inline: auto; }
+  .track-art strong { font-size: 120px; }
+  .track-copy h1 { font-size: 42px; }
+  .track-copy h1 em { font-size: .65em; }
+  .track-room-description { font-size: 10px; }
+  .track-player { margin-top: 23px; grid-template-columns: 1fr; }
+  .track-player .button { grid-row: auto; width: fit-content; }
+  .preview-label { position: absolute; right: 19px; margin-top: -51px; font-size: 6px; }
+  .track-notes { padding-top: 25px; }
+  .track-notes-heading { display: block; margin-bottom: 10px; }
+  .track-notes-heading p { margin-top: 8px; text-align: left; line-height: 1.7; }
+  .note-section { grid-template-columns: 1fr; gap: 8px; padding: 18px 0; }
+  .note-section p { font-size: 11px; }
+  .lyrics-note { margin: 18px 0; padding: 18px; grid-template-columns: 1fr; gap: 16px; }
+  .related-event-list { grid-template-columns: 1fr; }
+  .track-pagination { gap: 7px; }
+  .track-pagination button { min-height: 70px; padding: 10px; }
+  .track-pagination strong { font-size: 9px; }
+  .search-page { min-height: 75vh; padding-top: 140px; }
+  .search-title h1 { font-size: 42px; }
+  .search-title > p:last-child { line-height: 1.8; }
+  .search-input-wrap { min-height: 55px; padding-inline: 12px; }
+  .search-input-wrap input { font-size: 11px; }
+  .search-result { min-height: 78px; grid-template-columns: 1fr auto; gap: 4px 10px; padding-right: 22px; }
+  .search-result .result-kind { grid-column: 1; grid-row: 1; }
+  .search-result strong { grid-column: 1; grid-row: 2; font-size: 10px; }
+  .search-result small { grid-column: 2; grid-row: 1 / span 2; max-width: 108px; font-size: 8px; text-align: right; }
+  .index-search { padding-bottom: 55px; }
+  .filter-row { padding-top: 12px; }
+  .filter-tabs button { padding: 6px 10px; font-size: 9px; }
+  .index-sources { margin-top: 45px; grid-template-columns: 1fr; gap: 12px; }
+  .source-shelf { grid-template-columns: 1fr; }
+  .player-dock { min-height: 66px; padding: 8px 13px 9px; }
+  .dock-idle { gap: 9px; }
+  .dock-line { height: 28px; }
+  .dock-idle small { font-size: 6px; }
+  .dock-idle strong { max-width: 200px; font-size: 8px; }
+  .dock-hint { display: none; }
+  .dock-track { grid-template-columns: 35px minmax(0,1fr) auto 24px; gap: 8px; }
+  .dock-cover { width: 35px; height: 35px; font-size: 8px; }
+  .dock-meta small { font-size: 6px; }
+  .dock-meta strong { font-size: 8px; }
+  .dock-controls { gap: 2px; }
+  .dock-controls .icon-button { width: 22px; height: 28px; }
+  .play-button { width: 31px; height: 31px; }
+  .dock-progress, .dock-time { display: none; }
+  .dock-expand { width: 24px; }
+  .dock-message { bottom: 1px; left: 56px; font-size: 6px; }
+  .dock-expanded { grid-column: 1 / span 4; grid-template-columns: 1fr auto auto; gap: 7px; padding: 11px 0 3px; }
+  .dock-expanded > span { grid-column: 1 / -1; }
+  .dock-expanded p { grid-column: 1 / -1; grid-row: 2; font-size: 8px; }
+  .dock-expanded .text-link { font-size: 8px; }
+  .toast { bottom: 82px; font-size: 9px; }
+  .intro-layer { grid-template-columns: 1fr; padding: 10vh 8vw; }
+  .intro-content .eyebrow { margin-bottom: 42px; font-size: 8px; }
+  .intro-content h1 { font-size: clamp(49px,14vw,76px); }
+  .intro-content h1 em { font-size: .48em; }
+  .intro-copy { font-size: 12px; }
+  .intro-actions { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .intro-footnote { margin-top: 35px; font-size: 8px; }
+  .intro-mark { position: absolute; width: 54vw; height: 35vh; right: -10vw; bottom: 8vh; opacity: .25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <noscript>이 아카이브를 이용하려면 JavaScript를 켜 주세요.</noscript>
+      <script>
+window.ARCHIVE_DATA = {
+  album: {
+    title: 'TOP SPOT — ANOTHER DIMENSION',
+    koreanTitle: '다중관점',
+    artist: 'T.O.P.',
+    releaseDate: '2026.04.03',
+    duration: '약 37분',
+    trackCount: 11,
+    apple: 'https://music.apple.com/us/album/top-spot-another-dimension/1889117489',
+    spotify: 'https://open.spotify.com/album/5ORJMfjjUnPI2gJwI35OjE',
+    official: 'https://topspot.lnk.to/anotherdimension',
+    portrait: 'https://www.instagram.com/ttt/',
+    interview: 'https://gqhongkong.com/en/highlight-eng/gq-hype-digital-cover%EF%BC%9At-o-p-another-dimension'
+  },
+  rooms: [
+    {
+      id: 'many-views',
+      number: '01',
+      title: '다중관점',
+      range: 'TRACK 01—04',
+      description: '공적인 보도와 자기 목소리, 거대한 자아와 떠나보내는 감정이 한 방에 놓인다.'
+    },
+    {
+      id: 'another-dimension',
+      number: '02',
+      title: '다른 차원',
+      range: 'TRACK 05—08',
+      description: '골목의 기억, 과열된 도시, 초현실적인 상상과 과장된 자신감이 교차한다.'
+    },
+    {
+      id: 'expanded-consciousness',
+      number: '03',
+      title: '의식확장',
+      range: 'TRACK 09—11',
+      description: '팬에게 말을 건네고, 공연 뒤의 공백을 지나, 조금 더 단단한 마음으로 닫는다.'
+    }
+  ],
+  tracks: [
+    {
+      number: 1, id: 'self-crucifixion', korean: '탑욕', english: 'SELF CRUCIFIXION', duration: '3:27', room: 1,
+      interpretation: '이 아카이브는 첫 곡을 타인의 보도 문장과 자기 목소리가 포개지는 장면으로 읽는다. 과거를 정리했다고 서둘러 말하기보다, 서로 다른 시선이 한 사람 안에 남아 있음을 먼저 보여준다.',
+      listening: '뉴스 음성처럼 들리는 문장과 랩이 바뀌는 순간을 따라가 보세요. 누가 말하는지, 그 말이 누구의 목소리와 부딪히는지가 이 곡의 입구다.',
+      position: '앨범의 문을 여는 곡. 뒤이어 나오는 THE GIANT의 자기 선언을 듣기 전에 시선의 출처를 묻는다.',
+      events: ['case', 'quiet-years']
+    },
+    {
+      number: 2, id: 'the-giant', korean: '나만이', english: 'THE GIANT', duration: '3:48', room: 1,
+      interpretation: '‘거인’은 크기를 뽐내는 이름이면서, 혼자 자신을 세워야 하는 순간의 말로도 읽힌다. 이 노트는 두 방향을 함께 열어두고 한쪽을 정답으로 고르지 않는다.',
+      listening: '자기 자신을 가리키는 말이 반복될 때, 그 선언이 얼마나 단단하게 들리는지 살펴보세요. 첫 곡의 외부 시선과 연결하면 온도가 달라진다.',
+      position: '첫 곡의 보도와 자기비난에서 다음 장면으로 이동한다. 앨범 안에서 가장 직접적인 자기 호명이다.',
+      events: ['quiet-years']
+    },
+    {
+      number: 3, id: 'studio54', korean: '완전미쳤어!', english: 'Studio54', duration: '3:32', room: 1,
+      interpretation: '여기서의 해방은 단순한 축하보다 억눌린 감정을 떼어내려는 몸짓에 가깝다. 관계의 결말을 실제 인물의 이야기로 단정하지 않고, 노래 안의 화자가 만드는 거리로 읽는다.',
+      listening: '곡의 제목이 주는 들뜬 기운과 본문이 밀어내는 감정 사이를 오가 보세요. 한 단어만으로 기분을 결정하지 않을 때 다른 표정이 들린다.',
+      position: '다중관점의 마지막으로 향하는 전환점. 해방의 소리 뒤에 쇼윈도라는 다음 이미지가 놓인다.',
+      events: ['quiet-years']
+    },
+    {
+      number: 4, id: 'ovaya', korean: 'OVAYA', english: 'A SMALL, FILTHY SHOW WINDOW', duration: '3:13', room: 1,
+      interpretation: '작은 쇼윈도는 과거를 전시하는 표면이자 안과 밖을 가르는 유리로 읽힌다. BIGBANG 시절에 대한 작별이라는 해석은 이 아카이브의 관점이며, 당사자의 공식 설명으로 제시하지 않는다.',
+      listening: '쇼윈도라는 이미지가 앞선 곡의 해방과 어떻게 다른 거리를 만드는지 들어보세요. 제목의 긴 부제가 장면을 어디까지 바꾸는지도 살펴볼 만하다.',
+      position: '첫 번째 전시실을 닫는 트랙. 한 시기를 지나 다음 네 곡의 다른 풍경으로 옮겨간다.',
+      events: ['departure']
+    },
+    {
+      number: 5, id: 'zero-coke', korean: 'ZERO-COKE', english: 'ZERO-COKE', duration: '3:02', room: 2,
+      interpretation: '이 노트는 어린 시절의 골목과 상상 속 피난처라는 두 이미지를 따라간다. 구체적인 장소나 실제 기억으로 좁히지 않고, 익숙한 공간이 다른 세계가 되는 순간을 듣는다.',
+      listening: '제목의 일상적인 물건과 골목의 기억이 같은 장면에 놓이는 방식을 찾아보세요. 현실적인 이름이 상상을 밀어 올리는 지점에 귀를 둡니다.',
+      position: '두 번째 전시실의 입구. 뉴스와 자기 선언에서 벗어나 사적인 풍경으로 들어간다.',
+      events: ['debut']
+    },
+    {
+      number: 6, id: 'holy-dude', korean: '', english: 'Another Dimension Holy Dude !!!!!!!!', duration: '3:28', room: 2,
+      interpretation: '감각이 한꺼번에 밀려오는 이 곡을 짧게 부르면 ‘광기의 해방’이다. 그 말은 한 가지 정서를 고정하는 설명이 아니라, 소리와 장면이 풀려나는 순간을 가리키는 감상어다.',
+      listening: '느낌을 정리하려 하기보다 밀도가 높아지는 대목과 숨을 돌릴 수 있는 순간을 각각 찾아보세요. 두 순간의 간격이 곡의 속도를 만든다.',
+      position: '앨범 한가운데에서 다른 차원의 문턱을 넘는다. 뒤의 서울 풍경도 현실을 그대로 옮기기보다 비틀어 보여준다.',
+      events: ['quiet-years']
+    },
+    {
+      number: 7, id: 'seoul-chaos', korean: '서울시에 사는 기분', english: 'SEOUL CHAOS', duration: '3:04', room: 2,
+      interpretation: '서울의 과잉을 자기만의 놀이처럼 바꾸는 장면으로 읽는다. 도시를 객관적으로 설명하기보다, 그 안에 사는 한 화자의 속도와 시선을 따라간다.',
+      listening: '서울이라는 이름이 곡 안에서 배경에 머무는지, 화자의 태도와 함께 움직이는지 들어보세요. 제목의 차분함과 ‘카오스’의 충돌도 단서가 된다.',
+      position: '상상의 골목과 폭주하는 감각 다음에 놓인 도시의 장면. 다음 DESPERADO의 과장된 자신감으로 이어진다.',
+      events: ['debut']
+    },
+    {
+      number: 8, id: 'desperado', korean: '', english: 'DESPERADO', duration: '3:04', room: 2,
+      interpretation: '능글맞은 자신감과 로맨틱한 과장이 앞서는 곡이다. 가사의 화자를 실제 T.O.P.의 연애나 관계에 대한 증언으로 읽지 않는다.',
+      listening: '곡의 자신감이 진지함과 농담 사이에서 어떻게 움직이는지 들어보세요. 한 문장을 곧이곧대로 받기보다 말하는 태도를 따라가면 리듬이 선명해진다.',
+      position: '두 번째 전시실의 마지막. 도시의 소란을 지나 다음 방에서는 팬을 향한 직접적인 말이 시작된다.',
+      events: []
+    },
+    {
+      number: 9, id: 'for-fans', korean: '꼬깔코온', english: 'FOR FANS', duration: '3:14', room: 3,
+      interpretation: '팬에게 건네는 사적인 편지와 오래된 농담이 중심에 놓인다. 감사의 표현만 크게 부풀리지 않고, 오래 알고 지낸 사이의 말투와 장난기도 함께 듣는다.',
+      listening: '누구에게 말을 거는 곡인지 먼저 생각해 보세요. 팬에게 가까이 다가오는 대목과 일부러 가볍게 넘기는 대목의 간격이 편지의 말투를 만든다.',
+      position: '세 번째 전시실의 첫 곡. 앨범이 바깥의 이미지에서 듣는 사람과의 관계로 시선을 옮긴다.',
+      events: ['album']
+    },
+    {
+      number: 10, id: 'stendhal-syndrome', korean: '연극이 끝나고 난 뒤', english: 'STENDHAL SYNDROME', duration: '3:35', room: 3,
+      interpretation: '공연이 끝난 뒤 무대에 혼자 남는 시간, 그리고 다음 아침에 다시 시작하는 마음을 연결해 듣는다. ‘공허’가 모든 시간을 대표한다고 단정하지 않는다.',
+      listening: '연극이 끝났다는 제목의 이미지가 곡의 뒤쪽에서 어떤 여운으로 남는지 살펴보세요. 끝맺음보다 다음 장면을 암시하는 신호에 귀를 둡니다.',
+      position: '팬에게 건넨 말 다음, 무대의 바깥으로 돌아오는 곡. 마지막 BE SOLID가 제안하는 태도를 준비한다.',
+      events: ['quiet-years']
+    },
+    {
+      number: 11, id: 'be-solid', korean: '', english: 'BE SOLID', duration: '3:30', room: 3,
+      interpretation: '더 강해지겠다는 선언보다 포근하고 안정된 사람이 되고 싶다는 작은 바람으로 읽는다. 앨범의 마지막을 승리의 구호로 닫지 않고, 앞으로의 태도를 조용히 남긴다.',
+      listening: '단단함을 큰 소리로 증명하는지, 차분한 말로 건네는지 들어보세요. 마지막 트랙이 앞선 열 곡의 감정을 어떤 속도로 내려놓는지도 살펴봅니다.',
+      position: '앨범의 마지막. 과거를 해결했다고 말하는 대신, 다음 날을 살아갈 한 가지 바람을 남긴다.',
+      events: ['album']
+    }
+  ],
+  events: [
+    {
+      id: 'debut', date: '2006.08.19', year: '2006', type: '활동', label: 'TEAM / FIRST STAGE',
+      title: 'BIGBANG 데뷔 — 팀 안에서 목소리를 만들다',
+      summary: 'BIGBANG의 데뷔와 T.O.P.의 팀 활동이 시작된 시기.',
+      fact: 'YG LIFE는 BIGBANG이 2006년 8월 19일 데뷔했다고 기록한다. 이 아카이브는 그룹 전체의 역사를 다시 쓰지 않고, T.O.P.가 팀 안에서 쌓은 음악·무대 기록을 앨범의 앞쪽 맥락으로 둔다.',
+      reading: '처음부터 솔로 아티스트였던 것처럼 이야기를 줄이지 않는다. 이 앨범을 듣기 전에 팀 안에서 쌓인 시간이 있었다는 사실을 남겨둔다.',
+      tracks: [5, 7],
+      sources: [{ label: 'YG LIFE · BIGBANG 10 Years', url: 'https://yg-life.com/archives/79224?lang=en' }]
+    },
+    {
+      id: 'fantastic-baby', date: '2012.03.07', year: '2012', type: '작품', label: 'MUSIC VIDEO / ALIVE',
+      title: 'Fantastic Baby — 한 벌스가 남긴 인상',
+      summary: '공식 뮤직비디오와 그룹의 대표적인 무대 장면을 다시 본다.',
+      fact: 'BIGBANG 공식 아티스트 채널에 《FANTASTIC BABY》 뮤직비디오가 2012년 3월 공개됐다. 가사 전문은 옮기지 않고, 영상과 음악을 공식 채널에서 확인하도록 연결한다.',
+      reading: '많은 사람이 기억하는 짧은 순간은 한 사람의 전체를 대신하지 않는다. 이 기록은 그 장면을 이후의 작업과 나란히 놓아 본다.',
+      tracks: [1, 4],
+      sources: [
+        { label: 'BIGBANG 공식 채널 · FANTASTIC BABY M/V', url: 'https://www.youtube.com/watch?v=AAbokV76tkU' },
+        { label: 'YG LIFE · 뮤직비디오 공개 기록', url: 'https://yg-life.com/archives/11774?lang=en' }
+      ]
+    },
+    {
+      id: 'turn-it-up', date: '2010', year: '2010', type: '작품', label: 'SOLO / TURN IT UP',
+      title: '솔로 활동 — Turn It Up',
+      summary: '그룹 활동과 나란히 이어진 초기 솔로 작업.',
+      fact: 'Apple Music의 T.O.P. 아티스트 페이지에는 2010년 발표된 《Turn It Up》이 솔로 작업으로 수록돼 있다. 이 시기를 팀과 솔로의 경계가 단번에 갈라진 사건으로 묘사하지 않는다.',
+      reading: '여기서는 독립 선언보다 하나의 목소리가 여러 형식으로 발표되기 시작한 장면으로 읽는다.',
+      tracks: [2, 3],
+      sources: [{ label: 'Apple Music · T.O.P. 아티스트 페이지', url: 'https://music.apple.com/us/artist/t-o-p/656496303' }]
+    },
+    {
+      id: 'actor', date: '2013', year: '2013', type: '작품', label: 'FILM / COMMITMENT',
+      title: '배우 활동 — 무대 밖의 얼굴',
+      summary: '영화 《동창생》(Commitment)을 통해 음악 무대 밖의 작업을 함께 본다.',
+      fact: 'YG Entertainment의 2013년 《DOOM DADA》 안내문은 T.O.P.가 영화 《Commitment》 촬영을 마친 뒤 곡을 준비했다고 기록한다. 작품 속 인물과 실제 인물의 생애는 구분해 다룬다.',
+      reading: '음악과 연기는 서로를 해설하는 증거가 아니다. 다른 매체에서 작업한 시간을 같은 연표 안에 두되, 해석은 섞지 않는다.',
+      tracks: [4, 6],
+      sources: [{ label: 'YG Entertainment · DOOM DADA 발매 안내', url: 'https://www.ygfamily.com/en/news/notice/1894' }]
+    },
+    {
+      id: 'doom-dada', date: '2013.11.15', year: '2013', type: '작품', label: 'SOLO / DOOM DADA',
+      title: 'DOOM DADA — 다음 음악까지 이어진 시간',
+      summary: '2013년 싱글을 메인 앨범으로 향하는 프롤로그에 둔다.',
+      fact: 'YG Entertainment는 《DOOM DADA》의 음원 공개일을 2013년 11월 15일로 안내했다. Apple Music도 이 곡을 2013년 싱글로 표시한다.',
+      reading: '2013년 이후를 아무 일도 없었던 빈 페이지로 만들지 않는다. 발표된 작업과 공개 활동, 사적인 창작을 서로 다른 기록으로 다룬다.',
+      tracks: [1, 6],
+      sources: [
+        { label: 'YG Entertainment · 발매 공지', url: 'https://www.ygfamily.com/en/news/notice/1894' },
+        { label: 'Apple Music · 앨범 및 이전 발매', url: 'https://music.apple.com/us/album/top-spot-another-dimension/1889117489' }
+      ]
+    },
+    {
+      id: 'case', date: '2017.07.20', year: '2017', type: '사건', label: 'COURT / PUBLIC RECORD',
+      title: '2017년 사건 — 헤드라인이 인물을 대신한 시기',
+      summary: '판결로 확인되는 사실만 간결하게 기록한다.',
+      fact: '연합뉴스 보도에 따르면 서울중앙지방법원은 2017년 7월 20일 최승현에게 징역 10개월, 집행유예 2년을 선고했다. 사건의 원인이나 성격을 추측하지 않고, 판결과 날짜만 기록한다.',
+      reading: '사건을 음악적 재능의 증거나 영웅담의 재료로 쓰지 않는다. 다음 곡으로 이동하기 전에 실제 기록과 이 아카이브의 해석을 분리해 둔다.',
+      tracks: [1],
+      sources: [{ label: '연합뉴스 · 판결 보도 (2017.07.20)', url: 'https://en.yna.co.kr/view/AEN20170720007051315' }]
+    },
+    {
+      id: 'health-coverage', date: '2017.06.08', year: '2017', type: '보도', label: 'PRESS / HEALTH',
+      title: '중환자실 보도와 회복',
+      summary: '공개된 건강 보도는 필요한 만큼만 다룬다.',
+      fact: '연합뉴스는 2017년 6월 가족을 인용해 T.O.P.가 의식을 회복하고 의사소통할 수 있게 됐다고 보도했다. 의료 세부정보와 당시 장면은 이 페이지에서 재현하지 않는다.',
+      reading: '건강 위기는 구경거리가 아니다. 확인된 공개 보도를 짧게 남기고, 사생활과 추측의 영역은 비워둔다.',
+      tracks: [1, 10],
+      sources: [{ label: '연합뉴스 · 가족의 상태 설명 보도', url: 'https://en.yna.co.kr/view/AEN20170608003351315' }]
+    },
+    {
+      id: 'dearmoon', date: '2022', year: '2022', type: '계획', label: 'DEARMOON / CREW',
+      title: 'DEARMOON 선정 — 달을 향한 계획',
+      summary: '프로젝트 공식 자료에 이름이 오른 사실을 기록한다.',
+      fact: 'dearMoon 공식 사이트의 크루 소개에는 T.O.P. (Choi Seung Hyun)가 포함돼 있다. 선정은 계획에 참여할 예정이었다는 뜻이며, 실제 비행이 이루어졌다는 의미가 아니다.',
+      reading: '이 기록은 당사자의 감정이나 동기를 대신 말하지 않는다. 발표된 계획이 이후 어떻게 바뀌었는지 다음 기록과 이어 읽는다.',
+      tracks: [5, 6],
+      sources: [{ label: 'dearMoon · 프로젝트 및 크루 소개', url: 'https://dearmoon.earth/' }]
+    },
+    {
+      id: 'departure', date: '2023.05.31', year: '2023', type: '발언', label: 'PUBLIC STATEMENT / BIGBANG',
+      title: 'BIGBANG과의 거리 — 공개적으로 드러난 선택',
+      summary: '그룹을 떠났다는 본인의 공개 발언을 기록한다.',
+      fact: '2023년 5월, T.O.P.는 Instagram에서 “이미 탈퇴했다”고 답하고 새 장을 시작한다고 덧붙였다. 이 발언의 맥락을 보도한 기사와 당시 공식 게시물 링크를 자료로 둔다.',
+      reading: '팬의 추측이나 SNS 계정 행동으로 이유를 채우지 않는다. 공개 발언이 있는 범위까지만 기록한다.',
+      tracks: [4, 9],
+      sources: [
+        { label: 'Soompi · 공개 발언 정리', url: 'https://www.soompi.com/article/1591152wpp/t-o-p-reveals-he-has-withdrawn-from-bigbang' },
+        { label: 'Rappler · 발언 맥락 보도', url: 'https://www.rappler.com/entertainment/korean-popular-music/choi-seunghyun-top-announces-departure-bigbang/' }
+      ]
+    },
+    {
+      id: 'dearmoon-cancelled', date: '2024.06.01', year: '2024', type: '계획', label: 'DEARMOON / CANCELLATION',
+      title: 'DEARMOON 취소 — 계획이 멈춘 뒤',
+      summary: '프로젝트 주최 측이 공개한 취소 안내를 중심으로 정리한다.',
+      fact: 'dearMoon 프로젝트는 2024년 6월 1일 공식 취소 공지를 발표했다. 공지는 발사 일정의 불확실성을 이유로 들었으며, 크루의 사적인 감정은 추정하지 않는다.',
+      reading: '계획의 취소를 실패나 운명으로 꾸미지 않는다. 발표된 계획과 종료 시점을 나란히 놓는다.',
+      tracks: [5, 10],
+      sources: [{ label: 'dearMoon · 공식 취소 공지 (PDF)', url: 'https://dearmoon.earth/pdf/dearMoon_EN_240601.pdf?0531=' }]
+    },
+    {
+      id: 'quiet-years', date: '2017—2026', year: '2017–2026', type: '인터뷰', label: 'MUSIC / QUIET YEARS',
+      title: '긴 공백 — 공개 무대 밖에서 이어진 음악',
+      summary: '공개 활동의 공백과 본인이 말한 창작 시간을 구분한다.',
+      fact: '2026년 GQ Hong Kong 인터뷰에서 T.O.P.는 대중과 거리를 두고 음악 작업에 집중했다고 회고했다. 본인의 설명을 인용한 2026년 기록이며, 비공개 작업을 이 사이트가 독립적으로 확인한 것은 아니다.',
+      reading: '공백은 발표물이 적었던 시간이지, 아무것도 하지 않았다는 뜻은 아니다. 동시에 당사자의 회고를 완전한 연대기로 확대하지 않는다.',
+      tracks: [1, 2, 6, 10],
+      sources: [{ label: 'GQ Hong Kong · T.O.P. 인터뷰 (2026.04.08)', url: 'https://gqhongkong.com/en/highlight-eng/gq-hype-digital-cover%EF%BC%9At-o-p-another-dimension' }]
+    },
+    {
+      id: 'squid-cast', date: '2023.06.29', year: '2023', type: '작품', label: 'SCREEN / SQUID GAME 2',
+      title: '오징어 게임 2 — 타노스 역으로 캐스팅되다',
+      summary: '배우로서 공개된 복귀 소식과 작품 속 역할을 기록한다.',
+      fact: 'Netflix는 2023년 《오징어 게임》 시즌 2 출연진을 발표하며 최승현을 포함했다. 작품에서 그가 연기한 캐릭터와 실제 인물의 생애를 구분한다.',
+      reading: '배우 T.O.P.의 장면을 실제 인물의 사건에 대한 설명으로 사용하지 않는다. 화면 안의 역할은 작품 안에 둔다.',
+      tracks: [3, 8],
+      sources: [
+        { label: 'About Netflix · 시즌 2 출연진 발표', url: 'https://about.netflix.com/en/news/squid-game-season-2-final-cast-unveiled' },
+        { label: 'Netflix Tudum · 타노스 인터뷰', url: 'https://www.netflix.com/tudum/articles/squid-game-thanos-choi-seung-hyun-interview' }
+      ]
+    },
+    {
+      id: 'thanos', date: '2024.12.26', year: '2024–2025', type: '작품', label: 'SCREEN / THANOS',
+      title: '타노스 — 작품 속 인물과 본인을 나눠 읽기',
+      summary: '시즌 공개 뒤 배우의 설명을 작품과 함께 확인한다.',
+      fact: '《오징어 게임》 시즌 2는 2024년 12월 공개됐다. Netflix Tudum의 2025년 인터뷰에서 최승현은 타노스라는 캐릭터의 구상과 촬영 경험을 설명했다.',
+      reading: '작품의 설정을 실제 사람의 심리나 과거에 대한 단서로 쓰지 않는다. 배우의 발언은 역할에 관해 말한 내용으로 한정한다.',
+      tracks: [3, 8],
+      sources: [{ label: 'Netflix Tudum · 배우 인터뷰 (2025.02.02)', url: 'https://www.netflix.com/tudum/articles/squid-game-thanos-choi-seung-hyun-interview' }]
+    },
+    {
+      id: 'gq-interview', date: '2026.04.08', year: '2026', type: '인터뷰', label: 'INTERVIEW / I MAKE MY MUSIC',
+      title: '오랜만의 인터뷰 — I MAKE MY MUSIC',
+      summary: '앨범을 만드는 과정에 대한 당사자의 말을 확인한다.',
+      fact: 'GQ Hong Kong 인터뷰에서 T.O.P.는 《ANOTHER DIMENSION》을 만들며 과거를 정리하고 새 장으로 건너가려 했다고 설명했다. 이는 인터뷰에서 한 말이며, 앨범의 유일한 해석으로 제시하지 않는다.',
+      reading: '당사자의 설명과 이 아카이브의 곡별 감상은 같은 것이 아니다. 인터뷰를 읽은 뒤에도 각 곡을 듣는 사람의 해석은 열어둔다.',
+      tracks: [1, 11],
+      sources: [{ label: 'GQ Hong Kong · T.O.P. 인터뷰 (2026.04.08)', url: 'https://gqhongkong.com/en/highlight-eng/gq-hype-digital-cover%EF%BC%9At-o-p-another-dimension' }]
+    },
+    {
+      id: 'album', date: '2026.04.03', year: '2026', type: '앨범', label: 'FIRST STUDIO ALBUM / 11 TRACKS',
+      title: 'ANOTHER DIMENSION — 앨범이 도착하다',
+      summary: '첫 정규 앨범의 발매 정보와 11곡의 흐름을 확인한다.',
+      fact: 'Apple Music은 《TOP SPOT — ANOTHER DIMENSION》을 2026년 4월 3일 발매된 11곡의 앨범으로 표기한다. 트랙명과 길이는 Apple Music·Spotify 정보를 기준으로 정리했다.',
+      reading: '이 앨범이 과거를 지우거나 모든 일을 해결했다고 단정하지 않는다. 한 곡씩 듣고 각자의 감정과 연결을 찾아갈 수 있도록 문을 연다.',
+      tracks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      sources: [
+        { label: 'Apple Music · 앨범 정보', url: 'https://music.apple.com/us/album/top-spot-another-dimension/1889117489' },
+        { label: 'Spotify · 트랙명과 재생 길이', url: 'https://open.spotify.com/album/5ORJMfjjUnPI2gJwI35OjE' },
+        { label: '멜론 매거진 · 한국어 트랙 표기', url: 'https://www.melon.com/musicstory/detail.htm?mstorySeq=16822' },
+        { label: 'T.O.P. 공식 채널 · 앨범 오디오', url: 'https://www.youtube.com/watch?v=hCX5lD7iNVs' }
+      ]
+    }
+  ]
+};
+
+    </script>
+    <script>
+(function () {
+  'use strict';
+
+  const data = window.ARCHIVE_DATA;
+  const app = document.getElementById('app');
+  const state = {
+    route: location.hash ? location.hash.slice(1) : 'home',
+    currentTrack: null,
+    expandedPlayer: false,
+    previewMessage: '',
+    previews: null,
+    previewPromise: null,
+    searchText: '',
+    lifeYear: 'all',
+    indexType: 'all',
+    toastTimer: null
+  };
+  let audio = new Audio();
+  audio.preload = 'none';
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char];
+    });
+  }
+
+  function safeUrl(value) {
+    return /^https:\/\/[a-z0-9.-]+(?::[0-9]+)?(?:\/|$)/i.test(value) ? value : '#';
+  }
+
+  function externalLink(url, label, className) {
+    return '<a class="' + (className || 'text-link') + '" href="' + escapeHtml(safeUrl(url)) + '" target="_blank" rel="noopener noreferrer">' +
+      escapeHtml(label) + '<span aria-hidden="true"> ↗</span></a>';
+  }
+
+  function trackTitle(track, includeEnglish) {
+    if (includeEnglish === false) return track.korean || track.english;
+    return track.korean ? track.korean + ' (' + track.english + ')' : track.english;
+  }
+
+  function getTrack(number) {
+    return data.tracks.find(function (track) { return track.number === Number(number); }) || data.tracks[0];
+  }
+
+  function roomFor(number) {
+    return data.rooms.find(function (room) {
+      const limits = room.id === 'many-views' ? [1, 4] : room.id === 'another-dimension' ? [5, 8] : [9, 11];
+      return number >= limits[0] && number <= limits[1];
+    }) || data.rooms[0];
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('is-visible');
+    window.clearTimeout(state.toastTimer);
+    state.toastTimer = window.setTimeout(function () { toast.classList.remove('is-visible'); }, 3000);
+  }
+
+  function go(route, options) {
+    const opts = options || {};
+    state.route = route;
+    if (route.indexOf('track/') === 0) {
+      const number = Number(route.split('/')[1]);
+      if (number && (!state.currentTrack || state.currentTrack.number !== number)) {
+        audio.pause();
+        state.currentTrack = getTrack(number);
+        state.previewMessage = '';
+      }
+    }
+    if (location.hash.slice(1) !== route) location.hash = route;
+    renderRoute(true, opts.focus !== false);
+  }
+
+  function closeIntro(route) {
+    try { localStorage.setItem('topspot-intro-seen', '1'); } catch (ignore) {}
+    const layer = document.getElementById('intro');
+    if (layer) layer.classList.remove('is-visible');
+    go(route || 'home');
+  }
+
+  function renderShell() {
+    app.innerHTML = [
+      '<a class="skip-link" href="#route-view">본문으로 건너뛰기</a>',
+      '<header class="site-header">',
+      '  <a class="wordmark" href="#home" aria-label="T.O.P. 아카이브 첫 화면"><span>T.O.P.</span><i>ARCHIVE</i></a>',
+      '  <nav class="primary-nav" aria-label="주요 메뉴">',
+      '    <a data-nav="records" href="#records">RECORDS</a>',
+      '    <a data-nav="life" href="#life">THE LIFE</a>',
+      '    <a data-nav="index" href="#index">INDEX</a>',
+      '  </nav>',
+      '  <button class="header-search" data-nav="search" aria-label="검색 열기"><span>SEARCH</span><kbd>/</kbd></button>',
+      '</header>',
+      '<main id="route-view" tabindex="-1"></main>',
+      '<aside id="player-dock" class="player-dock" aria-label="미니 플레이어"></aside>',
+      '<div class="toast" id="toast" role="status" aria-live="polite"></div>',
+      '<div class="intro-layer" id="intro" aria-labelledby="intro-title">',
+      '  <div class="intro-content">',
+      '    <p class="eyebrow"><span class="live-dot"></span> INDEPENDENT CULTURE ARCHIVE · 01</p>',
+      '    <p class="intro-overline">A LIFE IN 11 TRACKS</p>',
+      '    <h1 id="intro-title">T.O.P.<br><em>ANOTHER DIMENSION</em></h1>',
+      '    <div class="intro-rule"></div>',
+      '    <p class="intro-copy">긴 공백 뒤에 나온 첫 정규 앨범.<br>11곡과 그 앞의 시간을 함께 기록합니다.</p>',
+      '    <div class="intro-actions">',
+      '      <button class="button button-light" data-enter="home">아카이브 들어가기 <span aria-hidden="true">↗</span></button>',
+      '      <button class="quiet-button" data-enter="records">바로 앨범 보기 <span aria-hidden="true">→</span></button>',
+      '    </div>',
+      '    <p class="intro-footnote">비공식 팬 아카이브 · 음악은 재생 버튼을 눌러야 시작됩니다.</p>',
+      '  </div>',
+      '  <div class="intro-mark" aria-hidden="true"><span>TOP SPOT</span><i>2026</i></div>',
+      '</div>'
+    ].join('');
+  }
+
+  function currentTrackMarkup() {
+    const track = state.currentTrack;
+    if (!track) {
+      return [
+        '<div class="dock-idle"><span class="dock-line"></span><div>',
+        '<small>MINI PLAYER</small><strong>곡을 고르면 여기에 표시됩니다</strong></div></div>',
+        '<div class="dock-hint">선택한 곡은 자동 재생되지 않습니다.</div>'
+      ].join('');
+    }
+    const playText = audio.paused ? '재생' : '일시정지';
+    const playIcon = audio.paused ? '▶' : 'Ⅱ';
+    return [
+      '<div class="dock-track">',
+      '  <button class="dock-cover" data-nav="track/' + track.number + '" aria-label="' + escapeHtml(trackTitle(track)) + ' 곡 화면 열기"><span>' + String(track.number).padStart(2, '0') + '</span></button>',
+      '  <div class="dock-meta"><small>TRACK ' + String(track.number).padStart(2, '0') + ' · ' + escapeHtml(roomFor(track.number).title) + '</small><strong>' + escapeHtml(trackTitle(track)) + '</strong></div>',
+      '  <div class="dock-controls">',
+      '    <button class="icon-button" data-action="previous" aria-label="이전 곡" title="이전 곡">‹</button>',
+      '    <button class="play-button" data-action="play" aria-label="' + playText + '" title="' + playText + '">' + playIcon + '</button>',
+      '    <button class="icon-button" data-action="next" aria-label="다음 곡" title="다음 곡">›</button>',
+      '  </div>',
+      '  <div class="dock-progress"><span id="dock-progress-fill"></span></div>',
+      '  <div class="dock-time"><span id="dock-time-current">00:00</span><span id="dock-time-total">00:30</span></div>',
+      '  <button class="icon-button dock-expand" data-action="expand-player" aria-label="' + (state.expandedPlayer ? '플레이어 접기' : '플레이어 펼치기') + '" title="플레이어 펼치기">' + (state.expandedPlayer ? '⌄' : '⌃') + '</button>',
+      '</div>',
+      '<div class="dock-message" id="dock-message" aria-live="polite">' + escapeHtml(state.previewMessage) + '</div>',
+      state.expandedPlayer ? '<div class="dock-expanded"><span>ARCHIVE NOTES</span><p>' + escapeHtml(track.interpretation) + '</p>' + externalLink(data.album.apple, 'Apple Music') + externalLink(data.album.spotify, 'Spotify') + '</div>' : ''
+    ].join('');
+  }
+
+  function renderPlayer() {
+    const player = document.getElementById('player-dock');
+    if (!player) return;
+    player.innerHTML = currentTrackMarkup();
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const track = state.currentTrack;
+    if (!track) return;
+    const total = isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 30;
+    const progress = Math.min(1, audio.currentTime / total);
+    const fill = document.getElementById('dock-progress-fill');
+    const time = document.getElementById('dock-time-current');
+    if (fill) fill.style.width = (progress * 100) + '%';
+    if (time) time.textContent = clockString(audio.currentTime);
+    const bar = document.getElementById('track-progress-fill');
+    if (bar) bar.style.width = (progress * 100) + '%';
+    const trackTime = document.getElementById('track-time-current');
+    if (trackTime) trackTime.textContent = clockString(audio.currentTime);
+    const message = document.getElementById('dock-message');
+    if (message && state.previewMessage) message.textContent = state.previewMessage;
+  }
+
+  function clockString(seconds) {
+    const value = Math.max(0, Math.floor(Number(seconds) || 0));
+    return String(Math.floor(value / 60)).padStart(2, '0') + ':' + String(value % 60).padStart(2, '0');
+  }
+
+  function roomLabel(number) {
+    const room = roomFor(number);
+    return '<span class="room-tag">ROOM ' + room.number + ' · ' + escapeHtml(room.title) + '</span>';
+  }
+
+  function trackRow(track, options) {
+    const opts = options || {};
+    return [
+      '<div class="track-row ' + (opts.compact ? 'track-row-compact' : '') + '" data-track-row="' + track.number + '">',
+      '  <button class="track-select" data-nav="track/' + track.number + '" aria-label="트랙 ' + String(track.number).padStart(2, '0') + ' ' + escapeHtml(trackTitle(track)) + ' 상세 보기">',
+      '    <span class="track-no">' + String(track.number).padStart(2, '0') + '</span>',
+      '    <span class="track-name"><strong>' + escapeHtml(trackTitle(track)) + '</strong><small>' + (opts.compact ? escapeHtml(roomFor(track.number).title) : 'T.O.P. · ANOTHER DIMENSION') + '</small></span>',
+      '    <span class="track-duration">' + escapeHtml(track.duration) + '</span>',
+      '  </button>',
+      '  <button class="row-play" data-play="' + track.number + '" aria-label="' + escapeHtml(trackTitle(track)) + ' 30초 미리듣기 시작" title="30초 미리듣기">▶</button>',
+      '</div>'
+    ].join('');
+  }
+
+  function sourceList(sources) {
+    return '<ul class="source-list">' + sources.map(function (source) {
+      return '<li>' + externalLink(source.url, source.label) + '</li>';
+    }).join('') + '</ul>';
+  }
+
+  function eventCard(event, selected) {
+    return [
+      '<button class="event-card ' + (selected ? 'is-selected' : '') + '" data-event="' + escapeHtml(event.id) + '" aria-pressed="' + (selected ? 'true' : 'false') + '">',
+      '  <span class="event-date">' + escapeHtml(event.date) + '<i></i></span>',
+      '  <span class="event-label">' + escapeHtml(event.label) + '</span>',
+      '  <strong>' + escapeHtml(event.title) + '</strong>',
+      '  <span class="event-summary">' + escapeHtml(event.summary) + '</span>',
+      '  <span class="event-arrow" aria-hidden="true">↗</span>',
+      '</button>'
+    ].join('');
+  }
+
+  function homeView() {
+    const featured = getTrack(1);
+    return [
+      '<section class="home-hero">',
+      '  <div class="hero-copy">',
+      '    <p class="eyebrow"><span class="live-dot"></span> A CURATED ARCHIVE · LAST VERIFIED 2026.09.23</p>',
+      '    <h1>한 사람의 시간,<br><em>열한 곡의 다른 시선.</em></h1>',
+      '    <p class="hero-intro">《ANOTHER DIMENSION》의 11곡과 그 앞의 시간을 함께 걷습니다. 확인 가능한 기록과 이 아카이브의 해석을 나눠 읽습니다.</p>',
+      '    <div class="hero-actions">',
+      '      <button class="button button-light" data-nav="records">앨범 듣기 <span aria-hidden="true">↗</span></button>',
+      '      <button class="button button-outline" data-nav="life">이야기부터 보기 <span aria-hidden="true">→</span></button>',
+      '    </div>',
+      '    <div class="hero-facts"><span>11 TRACKS</span><i></i><span>3 ROOMS</span><i></i><span>15 RECORDS</span></div>',
+      '  </div>',
+      '  <div class="hero-artwork" aria-label="공식 앨범 아트워크가 아닌 편집용 타이포그래픽">',
+      '    <div class="artwork-top"><span>TOP SPOT</span><span>NO. 01 / 2026</span></div>',
+      '    <div class="artwork-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>',
+      '    <div class="artwork-title"><span>T.O.P.</span><strong>ANOTHER<br>DIMENSION</strong></div>',
+      '    <div class="artwork-bottom"><span>다중관점</span><span>ARCHIVE EDITION</span></div>',
+      '    <span class="artwork-disclaimer">TYPOGRAPHIC STUDY<br>NOT OFFICIAL ARTWORK</span>',
+      '  </div>',
+      '</section>',
+      '<section class="home-release wrap">',
+      '  <div><span class="section-index">01 / THE MAIN RECORD</span><h2>먼저, 앨범을 듣습니다.</h2><p>2026년 4월 3일 공개된 첫 정규 앨범. 세 개의 전시실, 열한 곡.</p></div>',
+      '  <div class="release-meta"><strong>' + escapeHtml(data.album.releaseDate) + '</strong><span>11곡 · ' + escapeHtml(data.album.duration) + '</span>' + externalLink(data.album.official, '공식 앨범 링크') + '</div>',
+      '</section>',
+      '<section class="home-panels wrap">',
+      '  <article class="feature-panel feature-life"><div class="panel-number">02</div><p class="eyebrow">THE LIFE / 15 EDITED RECORDS</p><h2>뉴스가 된 시간,<br>다시 음악으로.</h2><p>활동과 작품, 사건과 발언을 확인 가능한 출처와 함께 정리했습니다. 해석은 사실과 따로 읽을 수 있습니다.</p><button class="text-button" data-nav="life">연표 열기 <span aria-hidden="true">↗</span></button></article>',
+      '  <article class="feature-panel feature-track"><div class="panel-number">03</div><p class="eyebrow">START WITH TRACK 01</p><h2>' + escapeHtml(trackTitle(featured)) + '</h2><p>' + escapeHtml(featured.interpretation) + '</p><button class="text-button" data-nav="track/1">곡 노트 보기 <span aria-hidden="true">↗</span></button></article>',
+      '</section>',
+      '<section class="home-list wrap"><div class="section-heading"><div><span class="section-index">04 / TRACK LIST</span><h2>열한 곡, 한 장의 앨범</h2></div><button class="text-button" data-nav="records">전체 트랙 <span aria-hidden="true">↗</span></button></div>',
+      '<div class="home-track-grid">' + data.tracks.slice(0, 4).map(function (track) { return trackRow(track, { compact: true }); }).join('') + '</div>',
+      '</section>',
+      '<section class="home-note wrap"><span>EDITORIAL NOTE</span><p>이 사이트는 T.O.P.의 공식 홈페이지가 아닙니다. 개인이 편집한 비공식 아카이브이며, 사진·가사·음원 파일은 권한 확인 없이 저장하거나 재배포하지 않습니다.</p>' + externalLink(data.album.interview, 'GQ Hong Kong 인터뷰 보기') + '</section>',
+      '<footer class="site-footer wrap"><a class="wordmark" href="#home"><span>T.O.P.</span><i>ARCHIVE</i></a><span>AN UNOFFICIAL, SOURCE-LED ARCHIVE</span><button class="text-button" data-nav="index">INDEX ↗</button></footer>'
+    ].join('');
+  }
+
+  function roomCard(room) {
+    const range = room.id === 'many-views' ? [1, 4] : room.id === 'another-dimension' ? [5, 8] : [9, 11];
+    const tracks = data.tracks.filter(function (track) { return track.number >= range[0] && track.number <= range[1]; });
+    return [
+      '<article class="room-card room-' + room.number + '">',
+      '  <div class="room-heading"><span>' + room.number + '</span><div><p>' + escapeHtml(room.range) + '</p><h3>' + escapeHtml(room.title) + '</h3></div><span class="room-count">' + tracks.length + ' TRACKS</span></div>',
+      '  <p class="room-description">' + escapeHtml(room.description) + '</p>',
+      '  <div class="room-track-list">' + tracks.map(function (track) { return trackRow(track, { compact: true }); }).join('') + '</div>',
+      '</article>'
+    ].join('');
+  }
+
+  function recordsView() {
+    return [
+      '<section class="page-intro wrap"><div><p class="eyebrow">RECORDS / 01</p><h1>세 개의 방,<br><em>한 장의 앨범.</em></h1></div><p class="page-lede">《ANOTHER DIMENSION》을 하나의 흐름으로 듣되, 어느 곡부터 들어도 맥락을 따라올 수 있도록 정리했습니다.</p></section>',
+      '<section class="records-lead wrap">',
+      '  <div class="records-cover"><div class="cover-lines" aria-hidden="true"></div><span class="cover-label">T.O.P. / FIRST STUDIO ALBUM</span><strong>ANOTHER<br>DIMENSION</strong><span class="cover-korean">다중관점</span><small>편집용 그래픽 · 공식 앨범 이미지 아님</small></div>',
+      '  <div class="records-info"><p class="eyebrow">THE MAIN RECORD · 2026</p><h2>TOP SPOT —<br>ANOTHER DIMENSION</h2><p>2013년 《DOOM DADA》 뒤에 도착한 첫 정규 앨범입니다. 지난 시간을 단정하는 대신, 열한 곡의 장면을 차례로 놓아 봅니다.</p><dl><div><dt>발매</dt><dd>2026년 4월 3일</dd></div><div><dt>구성</dt><dd>11곡 · 약 37분</dd></div><div><dt>아티스트</dt><dd>T.O.P.</dd></div></dl>',
+      '    <div class="platform-links">' + externalLink(data.album.apple, 'Apple Music') + externalLink(data.album.spotify, 'Spotify') + externalLink(data.album.official, '공식 앨범 페이지') + '</div>',
+      '    <p class="rights-note">앨범 이미지는 외부에서 저장하지 않았습니다. 이 페이지의 타이포그래픽은 편집용 그래픽입니다.</p>',
+      '  </div>',
+      '</section>',
+      '<section class="rooms-section wrap"><div class="section-heading"><div><span class="section-index">THREE ROOMS</span><h2>앨범의 세 구분</h2></div><p>버전 구분을 빌린 편집 구조입니다.<br>곡 해석의 정답을 뜻하지 않습니다.</p></div>',
+      data.rooms.map(roomCard).join(''),
+      '</section>',
+      '<section class="before-album wrap"><div><span class="section-index">BEFORE THE ALBUM</span><h2>앞에 놓인 두 기록</h2><p>메인 앨범에 이르는 프롤로그. 별도의 디스코그래피로 넓히지 않습니다.</p></div><div class="before-links"><article><small>2010 · SOLO SINGLE</small><h3>Turn It Up</h3><p>팀 활동과 나란히 발표된 초기 솔로 작업.</p>' + externalLink('https://music.apple.com/us/artist/t-o-p/656496303', 'Apple Music에서 보기') + '</article><article><small>2013 · SOLO SINGLE</small><h3>DOOM DADA</h3><p>첫 정규 앨범 전 마지막 솔로 싱글.</p>' + externalLink('https://www.ygfamily.com/en/news/notice/1894', 'YG 발매 공지') + '</article></div></section>',
+      '<section class="credits wrap"><div><span class="section-index">ALBUM CREDITS</span><h2>공식 크레딧</h2><p>작사·작곡·프로듀싱 등 세부 크레딧은 공식 음원 서비스의 곡 정보에서 확인하세요. 검증하지 못한 이름과 역할은 임의로 채우지 않았습니다.</p></div><div class="platform-links">' + externalLink(data.album.apple, 'Apple Music 곡 정보') + externalLink(data.album.spotify, 'Spotify 앨범 정보') + '</div></section>',
+      '<footer class="site-footer wrap"><a class="wordmark" href="#home"><span>T.O.P.</span><i>ARCHIVE</i></a><span>RECORDS / 11 TRACKS</span><button class="text-button" data-nav="index">INDEX ↗</button></footer>'
+    ].join('');
+  }
+
+  function eventsForYear(year) {
+    if (year === 'all') return data.events;
+    return data.events.filter(function (event) { return event.year.indexOf(year) !== -1; });
+  }
+
+  function lifeView(selectedId) {
+    const years = ['all', '2006', '2010', '2012', '2013', '2017', '2022', '2023', '2024', '2026'];
+    const events = eventsForYear(state.lifeYear);
+    let selected = data.events.find(function (event) { return event.id === selectedId; });
+    if (!selected || events.indexOf(selected) === -1) selected = events[events.length - 1] || data.events[data.events.length - 1];
+    return [
+      '<section class="page-intro wrap"><div><p class="eyebrow">THE LIFE / 02</p><h1>한 사람의 시간,<br><em>편집된 기록.</em></h1></div><p class="page-lede">15개의 기록을 시간순으로 읽습니다. 날짜와 출처를 먼저 확인하고, 이 아카이브의 해석은 별도로 살펴보세요.</p></section>',
+      '<section class="life-layout wrap">',
+      '  <div class="life-list-column"><div class="life-list-tools"><label for="life-year">연도</label><select id="life-year">' + years.map(function (year) { return '<option value="' + year + '"' + (state.lifeYear === year ? ' selected' : '') + '>' + (year === 'all' ? '전체 보기' : year) + '</option>'; }).join('') + '</select><span>' + events.length + ' RECORDS</span></div>',
+      '    <div class="event-list">' + events.map(function (event) { return eventCard(event, selected && selected.id === event.id); }).join('') + '</div>',
+      '  </div>',
+      '  <article class="life-detail" aria-live="polite">',
+      '    <div class="detail-stamp"><span>' + escapeHtml(selected.date) + '</span><span>' + escapeHtml(selected.label) + '</span></div>',
+      '    <h2>' + escapeHtml(selected.title) + '</h2>',
+      '    <div class="fact-block"><span>기록</span><p>' + escapeHtml(selected.fact) + '</p></div>',
+      '    <div class="reading-block"><span>이 아카이브의 읽기</span><p>' + escapeHtml(selected.reading) + '</p></div>',
+      '    <div class="related-block"><span>연결된 곡</span><div class="related-track-list">' + selected.tracks.map(function (number) { const track = getTrack(number); return '<button data-nav="track/' + number + '">' + String(number).padStart(2, '0') + ' / ' + escapeHtml(trackTitle(track)) + ' <span aria-hidden="true">↗</span></button>'; }).join('') + '</div></div>',
+      '    <div class="sources-block"><span>출처</span>' + sourceList(selected.sources) + '</div>',
+      '    <p class="checked-date">선별 기록 · 마지막 사실 확인 2026.09.23</p>',
+      '  </article>',
+      '</section>',
+      '<section class="editorial-policy wrap"><p class="eyebrow">HOW TO READ</p><p>사실, 당사자 발언, 보도, 아카이브의 해석을 분리합니다. 확인되지 않은 동기와 심리 상태는 적지 않습니다.</p><button class="text-button" data-nav="index">관련 자료 찾아보기 ↗</button></section>',
+      '<footer class="site-footer wrap"><a class="wordmark" href="#home"><span>T.O.P.</span><i>ARCHIVE</i></a><span>THE LIFE / 15 RECORDS</span><button class="text-button" data-nav="records">RECORDS ↗</button></footer>'
+    ].join('');
+  }
+
+  function trackDetailView(number) {
+    const track = getTrack(number);
+    const room = roomFor(track.number);
+    const linkedEvents = data.events.filter(function (event) { return event.tracks.indexOf(track.number) !== -1; }).slice(0, 3);
+    const previous = getTrack(track.number === 1 ? 11 : track.number - 1);
+    const next = getTrack(track.number === 11 ? 1 : track.number + 1);
+    const savedLyrics = loadLyrics(track.number);
+    const korean = track.korean ? '<span>' + escapeHtml(track.korean) + '</span>' : '';
+    return [
+      '<section class="track-detail-page room-color-' + room.number + '">',
+      '  <div class="track-detail-head wrap"><button class="back-link" data-nav="records">← 앨범으로</button><span>' + roomLabel(track.number) + '</span><span class="track-sequence">TRACK ' + String(track.number).padStart(2, '0') + ' / 11</span></div>',
+      '  <div class="track-detail-main wrap">',
+      '    <div class="track-art" aria-label="공식 이미지가 아닌 타이포그래픽"><div class="track-art-lines" aria-hidden="true"></div><span>ROOM ' + room.number + '</span><strong>' + String(track.number).padStart(2, '0') + '</strong><small>ARCHIVE STUDY</small></div>',
+      '    <div class="track-copy">',
+      '      <p class="eyebrow">TOP SPOT — ANOTHER DIMENSION</p>',
+      '      <h1>' + korean + '<em>' + escapeHtml(track.english) + '</em></h1>',
+      '      <p class="track-room-title">ROOM ' + room.number + ' / ' + escapeHtml(room.title) + '<span>·</span>' + escapeHtml(track.duration) + '</p>',
+      '      <p class="track-room-description">' + escapeHtml(room.description) + '</p>',
+      '      <div class="track-player"><button class="button button-light" data-play="' + track.number + '" aria-label="' + escapeHtml(trackTitle(track)) + ' 미리듣기 시작"><span>▶</span> 30초 미리듣기</button><span class="preview-label">APPLE MUSIC PREVIEW · 30 SEC</span><div class="track-progress"><span id="track-progress-fill"></span></div><div class="track-time"><span id="track-time-current">00:00</span><span>00:30</span></div></div>',
+      '      <div class="track-main-links">' + externalLink(data.album.apple, 'Apple Music에서 전체 곡 듣기') + externalLink(data.album.spotify, 'Spotify 앨범 열기') + '</div>',
+      '    </div>',
+      '  </div>',
+      '</section>',
+      '<section class="track-notes wrap"><div class="track-notes-heading"><span class="section-index">ARCHIVE NOTES</span><p>아래 내용은 이 아카이브의 감상입니다. 공식 해설이나 당사자의 의도를 대신하지 않습니다.</p></div>',
+      '  <article class="note-section"><span>01 / 이 곡을 이렇게 듣는다</span><p>' + escapeHtml(track.interpretation) + '</p></article>',
+      '  <article class="note-section"><span>02 / 귀 기울일 부분</span><p>' + escapeHtml(track.listening) + '</p></article>',
+      '  <article class="note-section"><span>03 / 앨범 속 위치</span><p>' + escapeHtml(track.position) + '</p></article>',
+      '  <article class="lyrics-note"><div><span class="section-index">MY LYRICS / PRIVATE ON THIS DEVICE</span><h2>내 기기에서 보는 가사 메모</h2><p>공개 사용 권한이 확인된 가사 전문은 없습니다. 직접 입력한 텍스트는 이 브라우저 안에만 저장됩니다.</p></div><details><summary>' + (savedLyrics ? '저장한 메모 열기' : '내 메모 입력하기') + '</summary><label class="sr-only" for="lyrics-input">개인 가사 메모</label><textarea id="lyrics-input" rows="8" placeholder="직접 입력한 메모는 이 기기에만 저장됩니다."></textarea><div><button class="button button-outline" data-action="save-lyrics" data-lyrics-track="' + track.number + '">이 기기에 저장</button><button class="quiet-button" data-action="delete-lyrics" data-lyrics-track="' + track.number + '">삭제</button></div></details></article>',
+      '  <article class="related-block track-related"><span>관련 기록</span><div class="related-event-list">' + (linkedEvents.length ? linkedEvents.map(function (event) { return '<button data-nav="life/' + event.id + '"><small>' + escapeHtml(event.date) + '</small><strong>' + escapeHtml(event.title) + '</strong><span aria-hidden="true">↗</span></button>'; }).join('') : '<p>이 곡에 연결된 연표 기록은 없습니다.</p>') + '</div></article>',
+      '  <nav class="track-pagination" aria-label="트랙 이동"><button data-nav="track/' + previous.number + '"><small>PREVIOUS · ' + String(previous.number).padStart(2, '0') + '</small><strong>' + escapeHtml(trackTitle(previous)) + '</strong></button><button data-nav="track/' + next.number + '"><small>NEXT · ' + String(next.number).padStart(2, '0') + '</small><strong>' + escapeHtml(trackTitle(next)) + '</strong></button></nav>',
+      '</section>',
+      '<footer class="site-footer wrap"><a class="wordmark" href="#home"><span>T.O.P.</span><i>ARCHIVE</i></a><span>TRACK ' + String(track.number).padStart(2, '0') + ' / 11</span><button class="text-button" data-nav="records">RECORDS ↗</button></footer>'
+    ].join('');
+  }
+
+  function loadLyrics(number) {
+    try { return localStorage.getItem('topspot-lyrics-' + number) || ''; } catch (ignore) { return ''; }
+  }
+
+  function searchableText(item) {
+    if (item.number) return [trackTitle(item), roomFor(item.number).title, item.interpretation, item.listening, item.position].join(' ');
+    return [item.title, item.date, item.type, item.label, item.summary, item.fact, item.reading].join(' ');
+  }
+
+  function searchItems(query, type) {
+    const needle = query.trim().toLocaleLowerCase('ko');
+    const tracks = type === 'life' ? [] : data.tracks.filter(function (track) { return !needle || searchableText(track).toLocaleLowerCase('ko').indexOf(needle) !== -1; }).map(function (track) { return { kind: 'track', item: track }; });
+    const events = type === 'tracks' ? [] : data.events.filter(function (event) { return !needle || searchableText(event).toLocaleLowerCase('ko').indexOf(needle) !== -1; }).map(function (event) { return { kind: 'life', item: event }; });
+    return tracks.concat(events);
+  }
+
+  function searchResultRow(result) {
+    const item = result.item;
+    if (result.kind === 'track') {
+      return '<button class="search-result" data-nav="track/' + item.number + '"><span class="result-kind">TRACK ' + String(item.number).padStart(2, '0') + '</span><strong>' + escapeHtml(trackTitle(item)) + '</strong><small>' + escapeHtml(roomFor(item.number).title) + ' · ' + escapeHtml(item.duration) + '</small><i aria-hidden="true">↗</i></button>';
+    }
+    return '<button class="search-result" data-nav="life/' + escapeHtml(item.id) + '"><span class="result-kind">' + escapeHtml(item.date) + ' · ' + escapeHtml(item.type) + '</span><strong>' + escapeHtml(item.title) + '</strong><small>' + escapeHtml(item.summary) + '</small><i aria-hidden="true">↗</i></button>';
+  }
+
+  function searchView() {
+    const results = searchItems(state.searchText, 'all');
+    return [
+      '<section class="search-page wrap"><div class="search-title"><p class="eyebrow">SEARCH / 04</p><h1>찾고 싶은 장면을<br><em>입력하세요.</em></h1><p>곡명, 연도, 작품, 사건, 키워드를 검색합니다. 검색은 이 기기에서만 처리됩니다.</p></div>',
+      '<label class="search-input-wrap"><span aria-hidden="true">⌕</span><input id="archive-search" type="search" value="' + escapeHtml(state.searchText) + '" placeholder="예: 서울, 2017, Studio54" autocomplete="off" aria-label="아카이브 검색"><kbd>ESC</kbd></label>',
+      '<div class="search-meta"><span id="search-count">' + results.length + ' RESULTS</span><span>TRACKS + THE LIFE</span></div>',
+      '<div class="search-results" id="search-results">' + (results.length ? results.map(searchResultRow).join('') : '<div class="empty-state"><strong>찾은 결과가 없습니다.</strong><p>검색어를 짧게 바꾸거나 전체 목록을 열어보세요.</p><button class="text-button" data-nav="index">INDEX 전체 보기 ↗</button><button class="text-button" data-action="clear-search">검색어 지우기</button></div>') + '</div>',
+      '</section>',
+      '<footer class="site-footer wrap"><a class="wordmark" href="#home"><span>T.O.P.</span><i>ARCHIVE</i></a><span>LOCAL SEARCH / NO ACCOUNT</span><button class="text-button" data-nav="index">INDEX ↗</button></footer>'
+    ].join('');
+  }
+
+  function renderSearchResults() {
+    const resultsEl = document.getElementById('search-results');
+    const countEl = document.getElementById('search-count');
+    if (!resultsEl) return;
+    const results = searchItems(state.searchText, 'all');
+    if (countEl) countEl.textContent = results.length + ' RESULTS';
+    resultsEl.innerHTML = results.length ? results.map(searchResultRow).join('') :
+      '<div class="empty-state"><strong>찾은 결과가 없습니다.</strong><p>검색어를 짧게 바꾸거나 전체 목록을 열어보세요.</p><button class="text-button" data-nav="index">INDEX 전체 보기 ↗</button><button class="text-button" data-action="clear-search">검색어 지우기</button></div>';
+  }
+
+  function indexView() {
+    const results = searchItems(state.searchText, state.indexType);
+    return [
+      '<section class="page-intro wrap"><div><p class="eyebrow">INDEX / 03</p><h1>아카이브를<br><em>찾아보기.</em></h1></div><p class="page-lede">11곡과 15개 기록을 한곳에서 검색하고, 자료 유형별로 좁혀 볼 수 있습니다.</p></section>',
+      '<section class="index-search wrap"><label class="search-input-wrap"><span aria-hidden="true">⌕</span><input id="archive-search" type="search" value="' + escapeHtml(state.searchText) + '" placeholder="곡명, 연도, 키워드" autocomplete="off" aria-label="색인 검색"><kbd>/</kbd></label>',
+      '<div class="filter-row"><div class="filter-tabs" role="group" aria-label="자료 유형">' + [['all','전체'],['tracks','곡'],['life','연표']].map(function (filter) { return '<button data-filter="' + filter[0] + '" class="' + (state.indexType === filter[0] ? 'is-active' : '') + '" aria-pressed="' + (state.indexType === filter[0] ? 'true' : 'false') + '">' + filter[1] + '</button>'; }).join('') + '</div><span id="search-count">' + results.length + ' RESULTS</span></div>',
+      '<div class="index-results search-results" id="search-results">' + (results.length ? results.map(searchResultRow).join('') : '<div class="empty-state"><strong>검색 결과가 없습니다.</strong><p>검색어를 바꾸거나 전체 목록을 확인하세요.</p><button class="text-button" data-action="clear-search">검색어 지우기 ↗</button></div>') + '</div>',
+      '<section class="index-sources"><div><span class="section-index">SOURCE SHELF</span><h2>자료 모음</h2><p>앨범·작품 정보를 확인한 원자료로 이동합니다.</p></div><div class="source-shelf">' + externalLink(data.album.apple, 'Apple Music · 앨범 정보') + externalLink(data.album.spotify, 'Spotify · 앨범 정보') + externalLink(data.album.official, 'TOPSPOT · 공식 앨범 링크') + externalLink(data.album.interview, 'GQ Hong Kong · 인터뷰') + externalLink('https://dearmoon.earth/', 'dearMoon · 프로젝트 기록') + '</div></section>',
+      '</section>',
+      '<footer class="site-footer wrap"><a class="wordmark" href="#home"><span>T.O.P.</span><i>ARCHIVE</i></a><span>INDEX / SOURCES</span><button class="text-button" data-nav="life">THE LIFE ↗</button></footer>'
+    ].join('');
+  }
+
+  function renderRoute(shouldScroll, focusHeading) {
+    const route = location.hash ? location.hash.slice(1) : state.route || 'home';
+    state.route = route;
+    const parts = route.split('/');
+    const page = parts[0] || 'home';
+    let markup = homeView();
+    if (page === 'records') markup = recordsView();
+    if (page === 'life') markup = lifeView(parts[1]);
+    if (page === 'track') markup = trackDetailView(Number(parts[1]) || 1);
+    if (page === 'search') markup = searchView();
+    if (page === 'index') markup = indexView();
+    document.getElementById('route-view').innerHTML = markup;
+    document.querySelectorAll('[data-nav]').forEach(function (link) {
+      const currentPage = route.split('/')[0];
+      const targetPage = link.getAttribute('data-nav').split('/')[0];
+      if (link.matches('.primary-nav a')) {
+        if (currentPage === targetPage) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      }
+    });
+    renderPlayer();
+    const lyricsInput = document.getElementById('lyrics-input');
+    if (lyricsInput && page === 'track') lyricsInput.value = loadLyrics(Number(parts[1]) || 1);
+    const searchInput = document.getElementById('archive-search');
+    if (searchInput) {
+      searchInput.addEventListener('input', function () {
+        state.searchText = searchInput.value;
+        renderSearchResults();
+      });
+      if (page === 'search' && focusHeading) window.setTimeout(function () { searchInput.focus(); }, 10);
+    }
+    if (shouldScroll) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) window.scrollTo(0, 0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    if (focusHeading && page !== 'search') {
+      const heading = document.querySelector('#route-view h1');
+      if (heading) window.setTimeout(function () { heading.focus({ preventScroll: true }); }, 0);
+    }
+  }
+
+  function getPreviews() {
+    if (state.previews) return Promise.resolve(state.previews);
+    if (state.previewPromise) return state.previewPromise;
+    state.previewPromise = fetch('https://itunes.apple.com/lookup?country=kr&id=1889117489&entity=song')
+      .then(function (response) {
+        if (!response.ok) throw new Error('preview request failed');
+        return response.json();
+      })
+      .then(function (payload) {
+        const rows = (payload.results || []).filter(function (row) { return row.wrapperType === 'track' && row.previewUrl; });
+        const lookup = {};
+        rows.forEach(function (row) { lookup[row.trackNumber] = row.previewUrl; });
+        state.previews = lookup;
+        return lookup;
+      })
+      .catch(function () {
+        state.previews = {};
+        return state.previews;
+      });
+    return state.previewPromise;
+  }
+
+  async function playTrack(number) {
+    const track = getTrack(number);
+    if (state.currentTrack && state.currentTrack.number === track.number && !audio.paused) {
+      audio.pause();
+      state.previewMessage = '일시정지했습니다.';
+      renderPlayer();
+      return;
+    }
+    state.currentTrack = track;
+    state.previewMessage = 'Apple Music 미리듣기를 확인하는 중…';
+    renderPlayer();
+    const previews = await getPreviews();
+    const previewUrl = previews[track.number];
+    if (!previewUrl) {
+      state.previewMessage = '이 지역에서 미리듣기를 불러오지 못했습니다. 공식 플랫폼 링크를 이용해 주세요.';
+      renderPlayer();
+      showToast('미리듣기를 열지 못했습니다. Apple Music 또는 Spotify에서 이어 들을 수 있습니다.');
+      return;
+    }
+    audio.pause();
+    audio.src = previewUrl;
+    audio.currentTime = 0;
+    state.previewMessage = '30초 미리듣기 재생 중';
+    try {
+      await audio.play();
+      renderPlayer();
+      updateProgress();
+    } catch (error) {
+      state.previewMessage = '재생을 시작하지 못했습니다. 재생 버튼을 다시 눌러 주세요.';
+      renderPlayer();
+    }
+  }
+
+  function selectTrack(number) {
+    const track = getTrack(number);
+    if (state.currentTrack && state.currentTrack.number !== track.number) audio.pause();
+    state.currentTrack = track;
+    state.previewMessage = '';
+    renderPlayer();
+  }
+
+  function skipTrack(direction) {
+    const current = state.currentTrack ? state.currentTrack.number : 1;
+    const next = current + direction < 1 ? data.tracks.length : current + direction > data.tracks.length ? 1 : current + direction;
+    selectTrack(next);
+    go('track/' + next);
+  }
+
+  function handleClick(event) {
+    const enter = event.target.closest('[data-enter]');
+    if (enter) { closeIntro(enter.getAttribute('data-enter')); return; }
+    const nav = event.target.closest('[data-nav]');
+    if (nav) { go(nav.getAttribute('data-nav')); return; }
+    const eventButton = event.target.closest('[data-event]');
+    if (eventButton) { go('life/' + eventButton.getAttribute('data-event')); return; }
+    const play = event.target.closest('[data-play]');
+    if (play) { playTrack(Number(play.getAttribute('data-play'))); return; }
+    const filter = event.target.closest('[data-filter]');
+    if (filter) {
+      state.indexType = filter.getAttribute('data-filter');
+      renderRoute(false, false);
+      return;
+    }
+    const action = event.target.closest('[data-action]');
+    if (!action) return;
+    const name = action.getAttribute('data-action');
+    if (name === 'play' && state.currentTrack) playTrack(state.currentTrack.number);
+    if (name === 'previous') skipTrack(-1);
+    if (name === 'next') skipTrack(1);
+    if (name === 'expand-player') { state.expandedPlayer = !state.expandedPlayer; renderPlayer(); }
+    if (name === 'clear-search') {
+      state.searchText = '';
+      const input = document.getElementById('archive-search');
+      if (input) { input.value = ''; input.focus(); }
+      renderSearchResults();
+    }
+    if (name === 'save-lyrics') {
+      const number = Number(action.getAttribute('data-lyrics-track'));
+      const input = document.getElementById('lyrics-input');
+      try { localStorage.setItem('topspot-lyrics-' + number, input ? input.value : ''); showToast('이 기기에 저장했습니다.'); }
+      catch (error) { showToast('브라우저 저장 공간을 사용할 수 없습니다.'); }
+    }
+    if (name === 'delete-lyrics') {
+      const number = Number(action.getAttribute('data-lyrics-track'));
+      try { localStorage.removeItem('topspot-lyrics-' + number); } catch (ignore) {}
+      const input = document.getElementById('lyrics-input');
+      if (input) input.value = '';
+      showToast('개인 메모를 삭제했습니다.');
+    }
+  }
+
+  function handleChange(event) {
+    if (event.target.id === 'life-year') {
+      state.lifeYear = event.target.value;
+      const selected = state.route.split('/')[1];
+      document.getElementById('route-view').innerHTML = lifeView(selected);
+      return;
+    }
+  }
+
+  function handleKeydown(event) {
+    const target = event.target;
+    const typing = target && (target.matches('input, textarea, select, [contenteditable="true"]'));
+    if (event.key === '/' && !typing) {
+      event.preventDefault();
+      go('search');
+      return;
+    }
+    if (event.key === 'Escape' && state.route === 'search') {
+      go('home');
+      return;
+    }
+    if (!typing && state.route.indexOf('track/') === 0 && event.key === 'ArrowLeft') {
+      event.preventDefault();
+      skipTrack(-1);
+    }
+    if (!typing && state.route.indexOf('track/') === 0 && event.key === 'ArrowRight') {
+      event.preventDefault();
+      skipTrack(1);
+    }
+  }
+
+  function setupAudio() {
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('loadedmetadata', updateProgress);
+    audio.addEventListener('play', function () { renderPlayer(); });
+    audio.addEventListener('pause', function () { renderPlayer(); });
+    audio.addEventListener('ended', function () {
+      state.previewMessage = '30초 미리듣기가 끝났습니다. 전체 곡은 공식 플랫폼에서 들을 수 있습니다.';
+      renderPlayer();
+    });
+    audio.addEventListener('error', function () {
+      if (state.currentTrack) {
+        state.previewMessage = '미리듣기를 불러오지 못했습니다. 공식 플랫폼 링크를 이용해 주세요.';
+        renderPlayer();
+      }
+    });
+  }
+
+  function init() {
+    renderShell();
+    setupAudio();
+    app.addEventListener('click', handleClick);
+    app.addEventListener('change', handleChange);
+    document.addEventListener('keydown', handleKeydown);
+    window.addEventListener('hashchange', function () { state.route = location.hash.slice(1) || 'home'; renderRoute(true, true); });
+    renderRoute(false, false);
+    try {
+      if (!localStorage.getItem('topspot-intro-seen')) document.getElementById('intro').classList.add('is-visible');
+    } catch (ignore) {
+      document.getElementById('intro').classList.add('is-visible');
+    }
+  }
+
+  init();
+}());
+
+    </script>
+  </body>
+</html>

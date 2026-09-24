@@ -8,8 +8,13 @@
     currentTrack: null,
     expandedPlayer: false,
     previewMessage: '',
+    previewStatus: 'idle',
     previews: null,
     previewPromise: null,
+    ambientStarted: false,
+    ambientMuted: false,
+    ambientVolume: 0.35,
+    previewRequestId: 0,
     searchText: '',
     lifeYear: 'all',
     indexType: 'all',
@@ -17,6 +22,9 @@
   };
   let audio = new Audio();
   audio.preload = 'none';
+  let ambientAudio = new Audio('./배경음악.mp3');
+  ambientAudio.loop = true;
+  ambientAudio.preload = 'none';
 
   function escapeHtml(value) {
     return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
@@ -60,6 +68,7 @@
 
   function go(route, options) {
     const opts = options || {};
+    if (route !== state.route) state.previewRequestId += 1;
     state.route = route;
     if (route.indexOf('track/') === 0) {
       const number = Number(route.split('/')[1]);
@@ -67,6 +76,7 @@
         audio.pause();
         state.currentTrack = getTrack(number);
         state.previewMessage = '';
+        state.previewStatus = 'idle';
       }
     }
     if (location.hash.slice(1) !== route) location.hash = route;
@@ -74,41 +84,127 @@
   }
 
   function closeIntro(route) {
-    try { localStorage.setItem('topspot-intro-seen', '1'); } catch (ignore) {}
     const layer = document.getElementById('intro');
-    if (layer) layer.classList.remove('is-visible');
-    go(route || 'home');
+    if (!layer || !layer.classList.contains('is-visible')) return;
+    layer.classList.add('is-exiting');
+    startAmbient();
+    const delay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 420;
+    window.setTimeout(function () {
+      layer.classList.remove('is-visible', 'is-exiting');
+      go(route || 'track/1');
+    }, delay);
+  }
+
+  function openIntro() {
+    const layer = document.getElementById('intro');
+    if (!layer) return;
+    layer.classList.remove('is-exiting');
+    layer.classList.add('is-visible');
+    const enter = layer.querySelector('[data-enter]');
+    if (enter) enter.focus({ preventScroll: true });
+  }
+
+  function updateAmbientControls() {
+    const toggle = document.getElementById('ambient-toggle');
+    const mute = document.getElementById('ambient-mute');
+    const volume = document.getElementById('ambient-volume');
+    if (toggle) {
+      toggle.disabled = !state.ambientStarted;
+      toggle.setAttribute('aria-label', ambientAudio.paused || !state.ambientStarted ? '배경 음악 재생' : '배경 음악 일시정지');
+      toggle.textContent = ambientAudio.paused || !state.ambientStarted ? '♫' : 'Ⅱ';
+    }
+    if (mute) {
+      mute.disabled = !state.ambientStarted;
+      mute.setAttribute('aria-pressed', state.ambientMuted ? 'true' : 'false');
+      mute.setAttribute('aria-label', state.ambientMuted ? '배경 음악 음소거 해제' : '배경 음악 음소거');
+      mute.textContent = state.ambientMuted ? 'UNMUTE' : 'MUTE';
+    }
+    if (volume) {
+      volume.value = String(state.ambientVolume);
+      volume.disabled = !state.ambientStarted;
+      volume.setAttribute('aria-valuetext', Math.round(state.ambientVolume * 100) + '%');
+    }
+  }
+
+  function startAmbient() {
+    if (state.ambientStarted) return;
+    state.ambientStarted = true;
+    ambientAudio.volume = 0;
+    ambientAudio.muted = state.ambientMuted;
+    ambientAudio.play().then(function () {
+      if (!state.ambientMuted) {
+        const startedAt = performance.now();
+        const targetVolume = state.ambientVolume;
+        function fadeIn(now) {
+          const progress = Math.min(1, (now - startedAt) / 650);
+          ambientAudio.volume = targetVolume * progress;
+          if (progress < 1 && !ambientAudio.paused) window.requestAnimationFrame(fadeIn);
+        }
+        window.requestAnimationFrame(fadeIn);
+      }
+      updateAmbientControls();
+    }).catch(function () {
+      updateAmbientControls();
+      showToast('배경 음악을 재생하지 못했습니다. 잠시 후 다시 시도해 주세요.');
+    });
+    updateAmbientControls();
+  }
+
+  function toggleAmbient() {
+    if (!state.ambientStarted) return;
+    if (ambientAudio.paused) {
+      ambientAudio.play().then(updateAmbientControls).catch(function () {
+        showToast('배경 음악을 재생하지 못했습니다.');
+      });
+    } else {
+      ambientAudio.pause();
+      updateAmbientControls();
+    }
+  }
+
+  function toggleAmbientMute() {
+    if (!state.ambientStarted) return;
+    state.ambientMuted = !state.ambientMuted;
+    ambientAudio.muted = state.ambientMuted;
+    try { localStorage.setItem('topspot-ambient-muted', state.ambientMuted ? '1' : '0'); } catch (ignore) {}
+    updateAmbientControls();
+  }
+
+  function setAmbientVolume(value) {
+    state.ambientVolume = Math.max(0, Math.min(1, Number(value) || 0));
+    ambientAudio.volume = state.ambientVolume;
+    state.ambientMuted = state.ambientVolume === 0;
+    ambientAudio.muted = state.ambientMuted;
+    try { localStorage.setItem('topspot-ambient-volume', String(state.ambientVolume)); } catch (ignore) {}
+    try { localStorage.setItem('topspot-ambient-muted', state.ambientMuted ? '1' : '0'); } catch (ignore) {}
+    updateAmbientControls();
   }
 
   function renderShell() {
     app.innerHTML = [
       '<a class="skip-link" href="#route-view">본문으로 건너뛰기</a>',
       '<header class="site-header">',
-      '  <a class="wordmark" href="#home" aria-label="T.O.P. 아카이브 첫 화면"><span>T.O.P.</span><i>ARCHIVE</i></a>',
+      '  <button class="wordmark header-wordmark" data-action="open-intro" aria-label="T.O.P. 인트로 다시 보기"><span>T.O.P.</span><i>ARCHIVE</i></button>',
       '  <nav class="primary-nav" aria-label="주요 메뉴">',
       '    <a data-nav="records" href="#records">RECORDS</a>',
       '    <a data-nav="life" href="#life">THE LIFE</a>',
       '    <a data-nav="index" href="#index">INDEX</a>',
+      '    <button class="intro-nav" data-action="open-intro">INTRO</button>',
       '  </nav>',
       '  <button class="header-search" data-nav="search" aria-label="검색 열기"><span>SEARCH</span><kbd>/</kbd></button>',
+      '  <div class="ambient-controls" aria-label="배경 음악 제어"><button id="ambient-toggle" data-action="toggle-ambient" aria-label="배경 음악 재생" disabled>♫</button><button id="ambient-mute" data-action="toggle-mute" aria-pressed="false" aria-label="배경 음악 음소거" disabled>MUTE</button><label for="ambient-volume" class="sr-only">배경 음악 음량</label><input id="ambient-volume" type="range" min="0" max="1" step="0.05" value="0.35" aria-label="배경 음악 음량" disabled></div>',
       '</header>',
       '<main id="route-view" tabindex="-1"></main>',
       '<aside id="player-dock" class="player-dock" aria-label="미니 플레이어"></aside>',
       '<div class="toast" id="toast" role="status" aria-live="polite"></div>',
       '<div class="intro-layer" id="intro" aria-labelledby="intro-title">',
+      '  <div class="intro-media" aria-hidden="true"><img src="./T.O.P_-_Another_Dimension(앨범커버).jpg" alt=""><iframe src="https://www.youtube-nocookie.com/embed/DCsLgtVF9Lo?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=DCsLgtVF9Lo&amp;start=70&amp;controls=0&amp;rel=0&amp;playsinline=1" title="FANTASTIC BABY official video background" allow="autoplay; encrypted-media; picture-in-picture" loading="eager" referrerpolicy="strict-origin-when-cross-origin" tabindex="-1"></iframe></div>',
+      '  <div class="intro-shade" aria-hidden="true"></div>',
       '  <div class="intro-content">',
-      '    <p class="eyebrow"><span class="live-dot"></span> INDEPENDENT CULTURE ARCHIVE · 01</p>',
-      '    <p class="intro-overline">A LIFE IN 11 TRACKS</p>',
-      '    <h1 id="intro-title">T.O.P.<br><em>ANOTHER DIMENSION</em></h1>',
-      '    <div class="intro-rule"></div>',
-      '    <p class="intro-copy">긴 공백 뒤에 나온 첫 정규 앨범.<br>11곡과 그 앞의 시간을 함께 기록합니다.</p>',
-      '    <div class="intro-actions">',
-      '      <button class="button button-light" data-enter="home">아카이브 들어가기 <span aria-hidden="true">↗</span></button>',
-      '      <button class="quiet-button" data-enter="records">바로 앨범 보기 <span aria-hidden="true">→</span></button>',
-      '    </div>',
-      '    <p class="intro-footnote">비공식 팬 아카이브 · 음악은 재생 버튼을 눌러야 시작됩니다.</p>',
+      '    <p class="intro-overline">T.O.P. /</p>',
+      '    <h1 id="intro-title">ANOTHER<br>DIMENSION</h1>',
+      '    <button class="button button-light" data-enter="track/1">ENTER ARCHIVE <span aria-hidden="true">↗</span></button>',
       '  </div>',
-      '  <div class="intro-mark" aria-hidden="true"><span>TOP SPOT</span><i>2026</i></div>',
       '</div>'
     ].join('');
   }
@@ -138,7 +234,7 @@
       '  <button class="icon-button dock-expand" data-action="expand-player" aria-label="' + (state.expandedPlayer ? '플레이어 접기' : '플레이어 펼치기') + '" title="플레이어 펼치기">' + (state.expandedPlayer ? '⌄' : '⌃') + '</button>',
       '</div>',
       '<div class="dock-message" id="dock-message" aria-live="polite">' + escapeHtml(state.previewMessage) + '</div>',
-      state.expandedPlayer ? '<div class="dock-expanded"><span>ARCHIVE NOTES</span><p>' + escapeHtml(track.interpretation) + '</p>' + externalLink(data.album.apple, 'Apple Music') + externalLink(data.album.spotify, 'Spotify') + '</div>' : ''
+      state.expandedPlayer ? '<div class="dock-expanded"><span>CURATOR INTERPRETATION</span><p>' + escapeHtml(track.interpretation) + '</p>' + externalLink(data.album.apple, 'Apple Music') + externalLink(data.album.spotify, 'Spotify') + '</div>' : ''
     ].join('');
   }
 
@@ -164,6 +260,11 @@
     if (trackTime) trackTime.textContent = clockString(audio.currentTime);
     const message = document.getElementById('dock-message');
     if (message && state.previewMessage) message.textContent = state.previewMessage;
+    const pageMessage = document.getElementById('track-preview-status');
+    if (pageMessage) {
+      pageMessage.textContent = state.previewMessage || '재생 버튼을 누르면 30초 미리듣기를 확인합니다.';
+      pageMessage.dataset.state = state.previewStatus;
+    }
   }
 
   function clockString(seconds) {
@@ -314,7 +415,12 @@
     const linkedEvents = data.events.filter(function (event) { return event.tracks.indexOf(track.number) !== -1; }).slice(0, 3);
     const previous = getTrack(track.number === 1 ? 11 : track.number - 1);
     const next = getTrack(track.number === 11 ? 1 : track.number + 1);
-    const savedLyrics = loadLyrics(track.number);
+    const linkedSources = [];
+    linkedEvents.forEach(function (event) {
+      event.sources.forEach(function (source) {
+        if (!linkedSources.some(function (item) { return item.url === source.url; })) linkedSources.push(source);
+      });
+    });
     const korean = track.korean ? '<span>' + escapeHtml(track.korean) + '</span>' : '';
     return [
       '<section class="track-detail-page room-color-' + room.number + '">',
@@ -325,26 +431,18 @@
       '      <p class="eyebrow">TOP SPOT — ANOTHER DIMENSION</p>',
       '      <h1>' + korean + '<em>' + escapeHtml(track.english) + '</em></h1>',
       '      <p class="track-room-title">ROOM ' + room.number + ' / ' + escapeHtml(room.title) + '<span>·</span>' + escapeHtml(track.duration) + '</p>',
-      '      <p class="track-room-description">' + escapeHtml(room.description) + '</p>',
-      '      <div class="track-player"><button class="button button-light" data-play="' + track.number + '" aria-label="' + escapeHtml(trackTitle(track)) + ' 미리듣기 시작"><span>▶</span> 30초 미리듣기</button><span class="preview-label">APPLE MUSIC PREVIEW · 30 SEC</span><div class="track-progress"><span id="track-progress-fill"></span></div><div class="track-time"><span id="track-time-current">00:00</span><span>00:30</span></div></div>',
-      '      <div class="track-main-links">' + externalLink(data.album.apple, 'Apple Music에서 전체 곡 듣기') + externalLink(data.album.spotify, 'Spotify 앨범 열기') + '</div>',
+      '      <div class="track-player"><button class="button button-light" data-play="' + track.number + '" aria-label="' + escapeHtml(trackTitle(track)) + ' 미리듣기 재생 또는 일시정지"><span>▶</span> 30초 미리듣기</button><span class="preview-label">APPLE MUSIC PREVIEW · 30 SEC</span><div class="track-progress"><span id="track-progress-fill"></span></div><div class="track-time"><span id="track-time-current">00:00</span><span>00:30</span></div><p id="track-preview-status" class="preview-status" data-state="' + escapeHtml(state.previewStatus) + '" aria-live="polite">' + escapeHtml(state.previewMessage || '재생 버튼을 누르면 30초 미리듣기를 확인합니다.') + '</p></div>',
+      '      <div class="track-main-links">' + externalLink(data.album.apple, 'Apple Music · 공식 앨범/곡 정보') + externalLink(data.album.spotify, 'Spotify · 공식 앨범/곡 정보') + '</div>',
       '    </div>',
       '  </div>',
       '</section>',
-      '<section class="track-notes wrap"><div class="track-notes-heading"><span class="section-index">ARCHIVE NOTES</span><p>아래 내용은 이 아카이브의 감상입니다. 공식 해설이나 당사자의 의도를 대신하지 않습니다.</p></div>',
-      '  <article class="note-section"><span>01 / 이 곡을 이렇게 듣는다</span><p>' + escapeHtml(track.interpretation) + '</p></article>',
-      '  <article class="note-section"><span>02 / 귀 기울일 부분</span><p>' + escapeHtml(track.listening) + '</p></article>',
-      '  <article class="note-section"><span>03 / 앨범 속 위치</span><p>' + escapeHtml(track.position) + '</p></article>',
-      '  <article class="lyrics-note"><div><span class="section-index">MY LYRICS / PRIVATE ON THIS DEVICE</span><h2>내 기기에서 보는 가사 메모</h2><p>공개 사용 권한이 확인된 가사 전문은 없습니다. 직접 입력한 텍스트는 이 브라우저 안에만 저장됩니다.</p></div><details><summary>' + (savedLyrics ? '저장한 메모 열기' : '내 메모 입력하기') + '</summary><label class="sr-only" for="lyrics-input">개인 가사 메모</label><textarea id="lyrics-input" rows="8" placeholder="직접 입력한 메모는 이 기기에만 저장됩니다."></textarea><div><button class="button button-outline" data-action="save-lyrics" data-lyrics-track="' + track.number + '">이 기기에 저장</button><button class="quiet-button" data-action="delete-lyrics" data-lyrics-track="' + track.number + '">삭제</button></div></details></article>',
-      '  <article class="related-block track-related"><span>관련 기록</span><div class="related-event-list">' + (linkedEvents.length ? linkedEvents.map(function (event) { return '<button data-nav="life/' + event.id + '"><small>' + escapeHtml(event.date) + '</small><strong>' + escapeHtml(event.title) + '</strong><span aria-hidden="true">↗</span></button>'; }).join('') : '<p>이 곡에 연결된 연표 기록은 없습니다.</p>') + '</div></article>',
+      '<section class="track-lyrics wrap"><div class="track-section-heading"><span class="section-index">LYRICS</span><p>가사 전문은 권리를 확인해 수록하지 않았습니다. 곡 정보는 공식 음원 서비스에서 확인할 수 있습니다.</p></div><div class="track-lyric-links">' + externalLink(data.album.apple, 'Apple Music에서 곡 정보 보기') + externalLink(data.album.spotify, 'Spotify에서 곡 정보 보기') + '</div></section>',
+      '<section class="track-interpretation wrap"><span class="section-index">CURATOR INTERPRETATION</span><p>' + escapeHtml(track.interpretation) + '</p></section>',
+      '<section class="track-sources wrap"><article class="related-block track-related"><span>연결된 연표 기록</span><div class="related-event-list">' + (linkedEvents.length ? linkedEvents.map(function (event) { return '<button data-nav="life/' + event.id + '"><small>' + escapeHtml(event.date) + '</small><strong>' + escapeHtml(event.title) + '</strong><span aria-hidden="true">↗</span></button>'; }).join('') : '<p>이 곡에 연결된 연표 기록은 없습니다.</p>') + '</div></article>' + (linkedSources.length ? '<div class="track-source-links"><span class="section-index">SOURCES</span>' + sourceList(linkedSources) + '</div>' : '') + '</section>',
       '  <nav class="track-pagination" aria-label="트랙 이동"><button data-nav="track/' + previous.number + '"><small>PREVIOUS · ' + String(previous.number).padStart(2, '0') + '</small><strong>' + escapeHtml(trackTitle(previous)) + '</strong></button><button data-nav="track/' + next.number + '"><small>NEXT · ' + String(next.number).padStart(2, '0') + '</small><strong>' + escapeHtml(trackTitle(next)) + '</strong></button></nav>',
       '</section>',
       '<footer class="site-footer wrap"><a class="wordmark" href="#home"><span>T.O.P.</span><i>ARCHIVE</i></a><span>TRACK ' + String(track.number).padStart(2, '0') + ' / 11</span><button class="text-button" data-nav="records">RECORDS ↗</button></footer>'
     ].join('');
-  }
-
-  function loadLyrics(number) {
-    try { return localStorage.getItem('topspot-lyrics-' + number) || ''; } catch (ignore) { return ''; }
   }
 
   function searchableText(item) {
@@ -423,8 +521,6 @@
       }
     });
     renderPlayer();
-    const lyricsInput = document.getElementById('lyrics-input');
-    if (lyricsInput && page === 'track') lyricsInput.value = loadLyrics(Number(parts[1]) || 1);
     const searchInput = document.getElementById('archive-search');
     if (searchInput) {
       searchInput.addEventListener('input', function () {
@@ -452,15 +548,15 @@
         return response.json();
       })
       .then(function (payload) {
-        const rows = (payload.results || []).filter(function (row) { return row.wrapperType === 'track' && row.previewUrl; });
+        const rows = (payload.results || []).filter(function (row) { return row.wrapperType === 'track'; });
+        if (!rows.length) throw new Error('no tracks returned');
         const lookup = {};
-        rows.forEach(function (row) { lookup[row.trackNumber] = row.previewUrl; });
+        rows.forEach(function (row) {
+          const number = Number(row.trackNumber);
+          if (number >= 1 && number <= data.tracks.length) lookup[number] = row.previewUrl || '';
+        });
         state.previews = lookup;
         return lookup;
-      })
-      .catch(function () {
-        state.previews = {};
-        return state.previews;
       });
     return state.previewPromise;
   }
@@ -469,40 +565,76 @@
     const track = getTrack(number);
     if (state.currentTrack && state.currentTrack.number === track.number && !audio.paused) {
       audio.pause();
+      state.previewStatus = 'paused';
       state.previewMessage = '일시정지했습니다.';
       renderPlayer();
       return;
     }
+    const requestId = ++state.previewRequestId;
+    if (state.currentTrack && state.currentTrack.number === track.number && audio.paused && audio.src && state.previewStatus === 'paused') {
+      try {
+        await audio.play();
+        state.previewStatus = 'playing';
+        state.previewMessage = '30초 미리듣기 재생 중';
+      } catch (error) {
+        state.previewStatus = 'playback-failed';
+        state.previewMessage = '브라우저에서 미리듣기를 재생하지 못했습니다. 공식 플랫폼 링크를 이용해 주세요.';
+      }
+      renderPlayer();
+      return;
+    }
+    if (state.currentTrack && state.currentTrack.number !== track.number) audio.pause();
     state.currentTrack = track;
+    state.previewStatus = 'loading';
     state.previewMessage = 'Apple Music 미리듣기를 확인하는 중…';
     renderPlayer();
-    const previews = await getPreviews();
+    let previews;
+    try {
+      previews = await getPreviews();
+    } catch (error) {
+      if (requestId !== state.previewRequestId) return;
+      state.previews = null;
+      state.previewPromise = null;
+      state.previewStatus = 'lookup-failed';
+      state.previewMessage = 'Apple Music 미리듣기 정보를 불러오지 못했습니다. 공식 플랫폼 링크를 이용해 주세요.';
+      renderPlayer();
+      return;
+    }
+    if (requestId !== state.previewRequestId) return;
     const previewUrl = previews[track.number];
     if (!previewUrl) {
-      state.previewMessage = '이 지역에서 미리듣기를 불러오지 못했습니다. 공식 플랫폼 링크를 이용해 주세요.';
+      state.previewStatus = 'unavailable';
+      state.previewMessage = '이 트랙은 Apple Music 미리듣기를 제공하지 않습니다. 아래 공식 플랫폼 링크를 이용해 주세요.';
       renderPlayer();
-      showToast('미리듣기를 열지 못했습니다. Apple Music 또는 Spotify에서 이어 들을 수 있습니다.');
       return;
     }
     audio.pause();
+    ambientAudio.pause();
     audio.src = previewUrl;
     audio.currentTime = 0;
+    state.previewStatus = 'loading';
     state.previewMessage = '30초 미리듣기 재생 중';
     try {
       await audio.play();
+      if (requestId !== state.previewRequestId) { audio.pause(); return; }
+      state.previewStatus = 'playing';
       renderPlayer();
       updateProgress();
     } catch (error) {
-      state.previewMessage = '재생을 시작하지 못했습니다. 재생 버튼을 다시 눌러 주세요.';
+      if (requestId !== state.previewRequestId) return;
+      state.previewStatus = 'playback-failed';
+      state.previewMessage = '브라우저에서 미리듣기를 재생하지 못했습니다. 공식 플랫폼 링크를 이용해 주세요.';
       renderPlayer();
     }
   }
 
   function selectTrack(number) {
+    state.previewRequestId += 1;
     const track = getTrack(number);
     if (state.currentTrack && state.currentTrack.number !== track.number) audio.pause();
     state.currentTrack = track;
     state.previewMessage = '';
+    state.previewStatus = 'idle';
     renderPlayer();
   }
 
@@ -516,6 +648,10 @@
   function handleClick(event) {
     const enter = event.target.closest('[data-enter]');
     if (enter) { closeIntro(enter.getAttribute('data-enter')); return; }
+    const action = event.target.closest('[data-action]');
+    if (action && action.getAttribute('data-action') === 'open-intro') { openIntro(); return; }
+    if (action && action.getAttribute('data-action') === 'toggle-ambient') { toggleAmbient(); return; }
+    if (action && action.getAttribute('data-action') === 'toggle-mute') { toggleAmbientMute(); return; }
     const nav = event.target.closest('[data-nav]');
     if (nav) { go(nav.getAttribute('data-nav')); return; }
     const eventButton = event.target.closest('[data-event]');
@@ -528,7 +664,6 @@
       renderRoute(false, false);
       return;
     }
-    const action = event.target.closest('[data-action]');
     if (!action) return;
     const name = action.getAttribute('data-action');
     if (name === 'play' && state.currentTrack) playTrack(state.currentTrack.number);
@@ -541,19 +676,10 @@
       if (input) { input.value = ''; input.focus(); }
       renderSearchResults();
     }
-    if (name === 'save-lyrics') {
-      const number = Number(action.getAttribute('data-lyrics-track'));
-      const input = document.getElementById('lyrics-input');
-      try { localStorage.setItem('topspot-lyrics-' + number, input ? input.value : ''); showToast('이 기기에 저장했습니다.'); }
-      catch (error) { showToast('브라우저 저장 공간을 사용할 수 없습니다.'); }
-    }
-    if (name === 'delete-lyrics') {
-      const number = Number(action.getAttribute('data-lyrics-track'));
-      try { localStorage.removeItem('topspot-lyrics-' + number); } catch (ignore) {}
-      const input = document.getElementById('lyrics-input');
-      if (input) input.value = '';
-      showToast('개인 메모를 삭제했습니다.');
-    }
+  }
+
+  function handleInput(event) {
+    if (event.target.id === 'ambient-volume') setAmbientVolume(event.target.value);
   }
 
   function handleChange(event) {
@@ -591,32 +717,51 @@
     audio.addEventListener('timeupdate', updateProgress);
     audio.addEventListener('loadedmetadata', updateProgress);
     audio.addEventListener('play', function () { renderPlayer(); });
-    audio.addEventListener('pause', function () { renderPlayer(); });
+    audio.addEventListener('pause', function () {
+      if (state.previewStatus === 'playing') {
+        state.previewStatus = 'paused';
+        state.previewMessage = '일시정지했습니다.';
+      }
+      renderPlayer();
+    });
     audio.addEventListener('ended', function () {
+      state.previewStatus = 'ended';
       state.previewMessage = '30초 미리듣기가 끝났습니다. 전체 곡은 공식 플랫폼에서 들을 수 있습니다.';
       renderPlayer();
     });
     audio.addEventListener('error', function () {
-      if (state.currentTrack) {
-        state.previewMessage = '미리듣기를 불러오지 못했습니다. 공식 플랫폼 링크를 이용해 주세요.';
+      if (state.currentTrack && audio.src) {
+        state.previewStatus = 'playback-failed';
+        state.previewMessage = '브라우저에서 미리듣기를 재생하지 못했습니다. 공식 플랫폼 링크를 이용해 주세요.';
         renderPlayer();
       }
     });
   }
 
+  function setupAmbient() {
+    try {
+      const savedVolume = localStorage.getItem('topspot-ambient-volume');
+      if (savedVolume !== null) state.ambientVolume = Math.max(0, Math.min(1, Number(savedVolume) || 0));
+      state.ambientMuted = localStorage.getItem('topspot-ambient-muted') === '1' || state.ambientVolume === 0;
+    } catch (ignore) {}
+    ambientAudio.volume = state.ambientVolume;
+    ambientAudio.muted = state.ambientMuted;
+    ambientAudio.addEventListener('play', updateAmbientControls);
+    ambientAudio.addEventListener('pause', updateAmbientControls);
+    updateAmbientControls();
+  }
+
   function init() {
     renderShell();
     setupAudio();
+    setupAmbient();
     app.addEventListener('click', handleClick);
     app.addEventListener('change', handleChange);
+    app.addEventListener('input', handleInput);
     document.addEventListener('keydown', handleKeydown);
     window.addEventListener('hashchange', function () { state.route = location.hash.slice(1) || 'home'; renderRoute(true, true); });
     renderRoute(false, false);
-    try {
-      if (!localStorage.getItem('topspot-intro-seen')) document.getElementById('intro').classList.add('is-visible');
-    } catch (ignore) {
-      document.getElementById('intro').classList.add('is-visible');
-    }
+    document.getElementById('intro').classList.add('is-visible');
   }
 
   init();
